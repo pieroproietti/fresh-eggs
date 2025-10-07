@@ -5,7 +5,7 @@ It took years of work to create the penguins-eggs, and I also incurred expenses 
 
 Thanks you!
 
-[![Donate](./assets/donate.png)](https://www.paypal.com/pool/9h2CmPBaPG?sr=wccr)
+[![donate](https://img.shields.io/badge/Donate-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/penguinseggs)
 
 [![donate](https://img.shields.io/badge/penguinseggs-donate-cyan)](https://www.paypal.com/pool/9h2CmPBaPG?sr=wccr)
 
