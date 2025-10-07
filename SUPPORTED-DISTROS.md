@@ -17,53 +17,54 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 
 | Rank | Name   | Status | Note | Remastered |
 |------|--------|--------|------|------------|
-|   1 |[CachyOS](https://cachyos.org/)      | OK|v25.10.6 |[download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
+|   1|[CachyOS](https://cachyos.org/)      | OK|v25.10.6 |[download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
 |  2|[Mint](https://linuxmint.com/)        | OK||[download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
-|  3|[MX Linux](https://mxlinux.org/)      |OK| I suggest to remove mx-installer and mx-snapshot|[download](https://drive.google.com/drive/folders/1-Xq4XfWkzlN14UEBr6ituSQ_A0zRT8Z5)
+|  3|[MX Linux](https://mxlinux.org/)      |OK| I suggest to remove mx-installer and mx-snapshot|)
 |  4|[EndeavourOS](https://endeavouros.com/)|OK||[download](https://drive.google.com/drive/folders/1ai5HSsNnQ65QWnTgtXI4kMRDpF9XqyQE)
-|  5|[Debian](https://www.debian.org/)      |OK||[download](https://drive.google.com/drive/folders/116YqAq55PBfbzXM9wLvyT2OXKuQPpKZr)
-|  6|[Pop!_OS](https://system76.com/pop/)   |OK||[Download](https://drive.google.com/drive/folders/1PpBhbE3XYJRCgE1gWmVgyHCkFgfxcIRt)
-|  7|[Manjaro](https://manjaro.org/)        |OK||[Download](https://drive.google.com/drive/folders/18C14m9nZIlYLA7zayRzDcqpZUWMoixyU)
-|  8|[Ubuntu](https://manjaro.org/)         |OK||[Download](https://drive.google.com/drive/folders/1zd-5istKS9eVHBcbXD7CL9T_UxjaKotQ)
-|  9|[Fedora](https://fedoraproject.org/)   |OK||[Download](https://drive.google.com/drive/folders/1B8am7G3FSxCD8rCLcyysDGTJD0GVUMhY)
-| 10|[Zorin](https://zorin.com/os/)         |OK||[Download](https://drive.google.com/drive/folders/1MOz7BZIpsVwZmMI_OersLQlLmzTn9Ib9)
-| 11|[openSUSE](https://www.opensuse.org/)  |OK| calamares on the repos is not complete, use krill to install|[Download](https://drive.google.com/drive/folders/1MOz7BZIpsVwZmMI_OersLQlLmzTn9Ib9)
-| 12|[Nobara](https://nobaraproject.org/)   |No| calamares on the repos is not complete, and installation with krill don't boot too|[Download](https://drive.google.com/drive/folders/1iiw1Itfo3-zGwn4jeM-LvWZbcbYKTd3Q)
-| 13|[elementary](https://elementary.io)    |OK||[Download](https://drive.google.com/drive/folders/1ojMO3m4jv7fMPtBkN-xsGz7gu16hmta4)
+|  5|[Debian](https://www.debian.org/)      |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+|  6|[Pop!_OS](https://system76.com/pop/)   |OK||
+|  7|[Manjaro](https://manjaro.org/)        |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+|  8|[Ubuntu](https://manjaro.org/)         |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+|  9|[Fedora](https://fedoraproject.org/)   |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+| 10|[Zorin](https://zorin.com/os/)         |OK||
+| 11|[openSUSE](https://www.opensuse.org/)  |OK| calamares on the repos is not complete, use krill to install|[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+| 10|[Zorin](https://zorin.com/os/)         |OK||
+| 12|[Nobara](https://nobaraproject.org/)   |No| calamares on the repos is not complete, and installation with krill don't boot too|
+| 13|[elementary](https://elementary.io)    |OK||
 | 14|[NixOS](https://nixos.org/)            |No|Distro not supported|
-| 15|[KDE neon](https://neon.kde.org/)      |OK||[Download](https://drive.google.com/drive/folders/1bRyl0tc6c-a_J2Y5PFvdI2hyMGZ20OKn)
-| 16|[AnduinOS](https://www.anduinos.com/)  |OK||[Download](https://drive.google.com/drive/folders/1gPhOxkuFn8i5X1cQO9v5Hr3NFo20JBOV)
-| 17|[TUXEDO](https://www.tuxedocomputers.com/en/TUXEDO-OS_1.tuxedo)|OK||[Download](https://drive.google.com/drive/folders/1bl3cXKI6sSrvpFNezRNRhLsP6d2biupW)
+| 15|[KDE neon](https://neon.kde.org/)      |OK||
+| 16|[AnduinOS](https://www.anduinos.com/)  |OK||
+| 17|[TUXEDO](https://www.tuxedocomputers.com/en/TUXEDO-OS_1.tuxedo)|OK||
 | 18|[antiX](https://antixlinux.com/)       |OK||
-| 19|[Bluestar](https://distrowatch.com/table.php?distribution=bluestar)|OK|Need to clean eggs.yaml|[Download](https://drive.google.com/drive/folders/1hRyW0KDq0lyW7BxveoL1tKo-y__WCaf1)
+| 19|[Bluestar](https://distrowatch.com/table.php?distribution=bluestar)|OK|Need to clean eggs.yaml|
 | 20|[Garuda](https://garudalinux.org/)     |No|It use dracut to build initramfs and its package `garuda-dracut` conflict with `mkinitcpio`|
-| 21|[AlmaLinux](https://almalinux.org/)    |OK|version 9.6|[Download](https://drive.google.com/drive/folders/1KVd6uRlX5bwICCCuWcX42uxHj3vJRK3T)
-| 22|[Kali](https://www.kali.org/)          |OK||[Download](https://drive.google.com/drive/folders/1Yikb1fLiK10u03AD6QBqzpDZXPkJdjEF)
+| 21|[AlmaLinux](https://almalinux.org/)    |OK|version 9.6|
+| 22|[Kali](https://www.kali.org/)          |OK||
 | 23|[FreeBSD](https://www.freebsd.org/)    |No|Not Linux, different OS|
 | 24|[Solus](https://getsol.us/)            |No|Distro not supported|
-| 25|[SparkyLinux](https://sparkylinux.org/)|OK||[Download](https://drive.google.com/drive/folders/1IX07xKfCJQH2KJ1Ab5FW5Ch3ddkaj-Zv)
-| 26|[BigLinux](https://sparkylinux.org/)   |OK||[Download](https://drive.google.com/drive/folders/1hWq1-B6nNU09AxddXmPm4GXRsXCECp99)
-| 27|[Alpine](https://www.alpinelinux.org/)|OK||[Download](https://drive.google.com/drive/folders/1xLSkmYDqwe01MEkDdYWG__gCNrqatLmr)
+| 25|[SparkyLinux](https://sparkylinux.org/)|OK||
+| 26|[BigLinux](https://sparkylinux.org/)   |OK|
+| 27|[Alpine](https://www.alpinelinux.org/)|OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
 | 28|[CentOS](https://www.centos.org/)      |||
-| 29|[Q4OS](https://q4os.org/)              |OK||[Download](https://drive.google.com/drive/folders/1-hTsVytCoajSl0zdGbA988voWk_DdjO4)
-| 30|[Lite](https://www.linuxliteos.com/)   |OK||[Download](https://drive.google.com/drive/folders/1ARW-39JPyFgjAwBcAK6O9-jnDdgu1SV5)
+| 29|[Q4OS](https://q4os.org/)              |OK||
+| 30|[Lite](https://www.linuxliteos.com/)   |OK||
 | 31|[Puppy](https://puppylinux-woof-ce.github.io/)|No|Distro not supported|
 | 32|[EasyOS](https://easyos.org/)          |No|Distro not supported||
 | 33|[Tails](https://tails.net/)            |OK|Distro not supported. it's mostly a live||
-| 34|[Kubuntu](https://kubuntu.org/)        |OK||[Download](https://drive.google.com/drive/folders/1-nmLVxbvzOjLXPMYXdV4cCnbUCoipnMr)
+| 34|[Kubuntu](https://kubuntu.org/)        |OK||
 | 35|[OpenMandriva](https://www.openmandriva.org/)  |No|Distro not supported, Mandrake based|
 | 36|[deepin](https://www.deepin.org/index/en)  |Ko|Give `sudo deepin-immutable-writable enable` and install penguins-eggs package .deb manually|
-| 37|[Linuxfx](https://distrowatch.com/table.php?distribution=linuxfx)  |OK||[Download](https://drive.google.com/drive/folders/1pbNHEOrrYQJ3pqiH07SPzNoeSl1EbzCI)
+| 37|[Linuxfx](https://distrowatch.com/table.php?distribution=linuxfx)  |OK||
 | 38|[PCLinuxOS](https://pclinuxos.com/)    |No|Distro not supported! Mandrake based|
-| 39|[Voyager](https://voyagerlive.org/)    |OK||[Download](https://drive.google.com/drive/folders/1fDfoEw_0r-R7K7xZ7aazTXmg2sNQ4_v4)
-| 40|[Parrot](https://parrotsec.org/)       |OK|get problems to reinstall, must to check|[Download](https://drive.google.com/drive/folders/1DYbAgEhX6B17HLB_sttRP2fCs-yr0x2o)
-| 41|[Rocky](https://rockylinux.org/)       |OK||[Download](https://drive.google.com/drive/folders/1perjMEKAo5F-ezb2TXbae5dACstJ5VAl)
-| 42|[Lubuntu](https://lubuntu.me/)         |OK||[Download](https://drive.google.com/drive/folders/16M3nUtqa-38RkHea6RPUhY9PSe63ODmK)
+| 39|[Voyager](https://voyagerlive.org/)    |OK||
+| 40|[Parrot](https://parrotsec.org/)       |OK|get problems to reinstall, must to check|
+| 41|[Rocky](https://rockylinux.org/)       |OK||
+| 42|[Lubuntu](https://lubuntu.me/)         |OK||
 | 43|[Slackware](http://www.slackware.com/) |No|Distro not supported, Slackware based|
 | 44|[PorteuX](https://www.porteus.org/)    |No|Distro not supported, Slackware based|
-| 45|[Devuan](https://www.devuan.org/)      |OK||[Download](https://drive.google.com/drive/folders/1cOpanKa-zRjwBi-1fwSCFf8JfmKfw40w)|
+| 45|[Devuan](https://www.devuan.org/)      |OK||
 | 46|[ALT](https://getalt.org/)             |No|Distro not supperted, Mandrake based|
-| 47|[DragonOS](https://sourceforge.net/projects/dragonos-focal/)|OK||[Download](DEBIAN_FRONTEND=nointeractive)|
+| 47|[DragonOS](https://sourceforge.net/projects/dragonos-focal/)|OK||
 | 48|[Red Hat](https://redhat.com)          |OK|To be tested|
 | 49|[Ultimate](https://ultimateedition.info/)|OK|To be tested|
 | 50|[ReactOS](https://reactos.org/)        |No|Not Linux, different OS|
@@ -75,7 +76,7 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 | 56|[Gentoo](https://www.gentoo.org/)      |No|Distro not supported| 
 | 57|[Calculate](https://www.calculate-linux.org/)  |No|Distro not supported| 
 | 58|[Commodore](https://www.commodore.net/)|OK|To be tested|
-| 59|[Arch](https://archlinux.org/)         |OK||[Download](https://drive.google.com/drive/folders/1qWh-hWjldQpb6TWSDY9h8tKdD4VadkOr)
+| 59|[Arch](https://archlinux.org/)         |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
 | 60|[Feren](https://ferenos.weebly.com/)   |OK||
 | 61|[Peppermint](https://peppermintos.com/)|OK||
 | 62|[RebornOS](https://rebornos.org/)      |OK|Tested from Ian Briggs|
