@@ -10,17 +10,17 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 
 | Rank | Name   | Status | Note | Remastered |
 |------|--------|--------|------|------------|
-|   1|[CachyOS](https://cachyos.org/)      | OK|v25.10.6 |[SUPPORTED_ISOS](#isos)
-|  2|[Mint](https://linuxmint.com/)        | OK||[download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
+|   1|[CachyOS](https://cachyos.org/)      | OK|v25.10.6 |[SUPPORTED_ISOS](#supported_isos)
+|  2|[Mint](https://linuxmint.com/)        | OK||[SUPPORTED_ISOS](#supported_isos)
 |  3|[MX Linux](https://mxlinux.org/)      |OK| I suggest to remove mx-installer and mx-snapshot|)
-|  4|[EndeavourOS](https://endeavouros.com/)|OK||download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
-|  5|[Debian](https://www.debian.org/)      |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+|  4|[EndeavourOS](https://endeavouros.com/)|OK|[SUPPORTED_ISOS](#supported_isos)
+|  5|[Debian](https://www.debian.org/)      |OK||[ISOS](#isos)
 |  6|[Pop!_OS](https://system76.com/pop/)   |OK||
-|  7|[Manjaro](https://manjaro.org/)        |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
-|  8|[Ubuntu](https://manjaro.org/)         |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
-|  9|[Fedora](https://fedoraproject.org/)   |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+|  7|[Manjaro](https://manjaro.org/)        |OK||[ISOS](#isos)
+|  8|[Ubuntu](https://manjaro.org/)         |OK||[ISOS](#isos)
+|  9|[Fedora](https://fedoraproject.org/)   |OK||[ISOS](#isos)
 | 10|[Zorin](https://zorin.com/os/)         |OK||
-| 11|[openSUSE](https://www.opensuse.org/)  |OK| calamares on the repos is not complete, use krill to install|[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+| 11|[openSUSE](https://www.opensuse.org/)  |OK| calamares on the repos is not complete, use krill to install|[download][ISOS](#isos)
 | 10|[Zorin](https://zorin.com/os/)         |OK||
 | 12|[Nobara](https://nobaraproject.org/)   |No| calamares on the repos is not complete, and installation with krill don't boot too|
 | 13|[elementary](https://elementary.io)    |OK||
@@ -37,7 +37,7 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 | 24|[Solus](https://getsol.us/)            |No|Distro not supported|
 | 25|[SparkyLinux](https://sparkylinux.org/)|OK||
 | 26|[BigLinux](https://sparkylinux.org/)   |OK|
-| 27|[Alpine](https://www.alpinelinux.org/)|OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+| 27|[Alpine](https://www.alpinelinux.org/)|OK||[ISOS](#isos)
 | 28|[CentOS](https://www.centos.org/)      |||
 | 29|[Q4OS](https://q4os.org/)              |OK||
 | 30|[Lite](https://www.linuxliteos.com/)   |OK||
@@ -69,7 +69,7 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 | 56|[Gentoo](https://www.gentoo.org/)      |No|Distro not supported| 
 | 57|[Calculate](https://www.calculate-linux.org/)  |No|Distro not supported| 
 | 58|[Commodore](https://www.commodore.net/)|OK|To be tested|
-| 59|[Arch](https://archlinux.org/)         |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+| 59|[Arch](https://archlinux.org/)         |OK||[ISOS](#isos)
 | 60|[Feren](https://ferenos.weebly.com/)   |OK||
 | 61|[Peppermint](https://peppermintos.com/)|OK||
 | 62|[RebornOS](https://rebornos.org/)      |OK|Tested from Ian Briggs|
