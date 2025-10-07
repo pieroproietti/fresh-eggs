@@ -6,13 +6,6 @@ Most of the information comes from direct experience, even from some time ago, a
 
 If you have different results, or know more, you can report it in the [issues](https://github.com/pieroproietti/fresh-eggs/issues).
 
-* [penguins-eggs Alpine Linux repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md)
-* [penguins-eggs Arch Linux repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ARCHLINUX.md)
-* [penguins-eggs Debian, Ubuntu repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-DEBIAN-DEVUAN-UBUNTU.md)
-* [penguins-eggs Enterprise Linux repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md)
-* [penguins-eggs Fedora repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-FEDORA.md)
-* [penguins-eggs OpenSUSE repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-OPENSUSE.md)
-
 The order reflect Page Hit Ranking at 2025 luly, 28:
 
 | Rank | Name   | Status | Note | Remastered |
@@ -20,7 +13,7 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 |   1|[CachyOS](https://cachyos.org/)      | OK|v25.10.6 |[download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
 |  2|[Mint](https://linuxmint.com/)        | OK||[download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
 |  3|[MX Linux](https://mxlinux.org/)      |OK| I suggest to remove mx-installer and mx-snapshot|)
-|  4|[EndeavourOS](https://endeavouros.com/)|OK||[download](https://drive.google.com/drive/folders/1ai5HSsNnQ65QWnTgtXI4kMRDpF9XqyQE)
+|  4|[EndeavourOS](https://endeavouros.com/)|OK||download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
 |  5|[Debian](https://www.debian.org/)      |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
 |  6|[Pop!_OS](https://system76.com/pop/)   |OK||
 |  7|[Manjaro](https://manjaro.org/)        |OK||[download](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
@@ -118,3 +111,18 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 | 98|[BunsenLabs](https://www.bunsenlabs.org/)  |OK||
 | 99|[Endless](https://www.endlessos.org/)      |OK|Debian based, to be tested|
 |100|[Porteus](https://www.porteus.org/)        |OK|Slackware based, not supported|
+
+
+
+# penguins-eggs repos
+* [penguins-eggs Alpine Linux repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md)
+* [penguins-eggs Arch Linux repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ARCHLINUX.md)
+* [penguins-eggs Debian, Ubuntu repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-DEBIAN-DEVUAN-UBUNTU.md)
+* [penguins-eggs Enterprise Linux repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md)
+* [penguins-eggs Fedora repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-FEDORA.md)
+* [penguins-eggs OpenSUSE repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-OPENSUSE.md)
+
+# Downloads
+
+## [ISOS](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+## [SUPPORTED-ISOS](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
