@@ -1,3 +1,4 @@
+![](./fresh-eggs.png)
 * [SUPPORTED_DISTROS](#supported-distros)
 * [REPOSITORIES](#repositories)
 * [DOWNLOADS](#downloads)
