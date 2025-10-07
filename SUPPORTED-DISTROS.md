@@ -10,10 +10,10 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 
 | Rank | Name   | Status | Note | Remastered |
 |------|--------|--------|------|------------|
-|   1|[CachyOS](https://cachyos.org/)      | OK|v25.10.6 |[SUPPORTED_ISOS](#supported_isos)
-|  2|[Mint](https://linuxmint.com/)        | OK||[SUPPORTED_ISOS](#supported_isos)
-|  3|[MX Linux](https://mxlinux.org/)      |OK| I suggest to remove mx-installer and mx-snapshot|)
-|  4|[EndeavourOS](https://endeavouros.com/)|OK|[SUPPORTED_ISOS](#supported_isos)
+|   1|[CachyOS](https://cachyos.org/)      | OK|v25.10.6 |[SUPPORTED_ISOS](#supported-isos)
+|  2|[Mint](https://linuxmint.com/)        | OK||[SUPPORTED_ISOS](#supported-isos)
+|  3|[MX Linux](https://mxlinux.org/)      |OK| I suggest to remove mx-installer and mx-snapshot|
+|  4|[EndeavourOS](https://endeavouros.com/)|OK|[SUPPORTED_ISOS](#supported-isos)
 |  5|[Debian](https://www.debian.org/)      |OK||[ISOS](#isos)
 |  6|[Pop!_OS](https://system76.com/pop/)   |OK||
 |  7|[Manjaro](https://manjaro.org/)        |OK||[ISOS](#isos)
