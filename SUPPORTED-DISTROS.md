@@ -11,7 +11,7 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 
 | Rank | Name   | Status | Note | Remastered |
 |------|--------|--------|------|------------|
-|   1 |[CachyOS](https://cachyos.org/)      | OK|v25.10.6|[download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
+|   1 |[CachyOS](https://cachyos.org/)      | OK|v25.10.6 [penguins-eggs Arch Linux Repository](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ARCHLINUX.md)|[download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
 |  2|[Mint](https://linuxmint.com/)        | OK||[download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
 |  3|[MX Linux](https://mxlinux.org/)      |OK| I suggest to remove mx-installer and mx-snapshot|[download](https://drive.google.com/drive/folders/1-Xq4XfWkzlN14UEBr6ituSQ_A0zRT8Z5)
 |  4|[EndeavourOS](https://endeavouros.com/)|OK||[download](https://drive.google.com/drive/folders/1ai5HSsNnQ65QWnTgtXI4kMRDpF9XqyQE)
