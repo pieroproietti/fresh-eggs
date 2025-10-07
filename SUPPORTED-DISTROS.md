@@ -1,5 +1,5 @@
 * [SUPPORTED_DISTROS](#supported-distros)
-* [REPOSITORIES](#repositoris)
+* [REPOSITORIES](#repositories)
 * [DOWNLOADS](#downloads)
 
 # SUPPORTED DISTROS
