@@ -20,7 +20,7 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 |  8|[Ubuntu](https://manjaro.org/)         |OK||[ISOS](#isos)
 |  9|[Fedora](https://fedoraproject.org/)   |OK||[ISOS](#isos)
 | 10|[Zorin](https://zorin.com/os/)         |OK||
-| 11|[openSUSE](https://www.opensuse.org/)  |OK| calamares on the repos is not complete, use krill to install|[download][ISOS](#isos)
+| 11|[openSUSE](https://www.opensuse.org/)  |OK| calamares on the repos is not complete, use krill to install|[ISOS](#isos)
 | 10|[Zorin](https://zorin.com/os/)         |OK||
 | 12|[Nobara](https://nobaraproject.org/)   |No| calamares on the repos is not complete, and installation with krill don't boot too|
 | 13|[elementary](https://elementary.io)    |OK||
