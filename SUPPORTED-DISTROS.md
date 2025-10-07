@@ -132,3 +132,10 @@ All materials is under my [googledrive](https://drive.google.com/drive/folders/1
 ### [ISOS](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
 ### [SUPPORTED-ISOS](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
 ### [PACKAGES](https://drive.google.com/drive/folders/1ojkzoWIFKDxtcor9z5NaqZlrVOYwFoVu)
+
+# [Donate](https://paypal.me/penguinseggs)
+It took years of work to create the penguins-eggs, and I also incurred expenses for renting the site and subscribing to Google Gemini, for the artificial intelligence that is now indispensable.
+
+Thanks you!
+
+[![donate](https://img.shields.io/badge/Donate-00457C?style=for-the-badge&logo=paypal&logoColor=white)](https://paypal.me/penguinseggs)

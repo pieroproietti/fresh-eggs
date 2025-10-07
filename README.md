@@ -1,6 +1,6 @@
 # fresh-eggs
 
-# [Donate](https://www.paypal.com/pool/9h2CmPBaPG?sr=wccr)
+# [Donate](https://paypal.me/penguinseggs)
 It took years of work to create the penguins-eggs, and I also incurred expenses for renting the site and subscribing to Google Gemini, for the artificial intelligence that is now indispensable.
 
 Thanks you!
