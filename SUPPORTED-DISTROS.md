@@ -119,6 +119,8 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 
 
 # REPOSITORIES
+There are several native repositories for penguins eggs depending on your distribution.
+
 * [penguins-eggs Alpine Linux repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md)
 * [penguins-eggs Arch Linux repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ARCHLINUX.md)
 * [penguins-eggs Debian, Ubuntu repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-DEBIAN-DEVUAN-UBUNTU.md)
