@@ -10,7 +10,7 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 
 | Rank | Name   | Status | Note | Remastered |
 |------|--------|--------|------|------------|
-|   1|[CachyOS](https://cachyos.org/)      | OK|v25.10.6 |[download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
+|   1|[CachyOS](https://cachyos.org/)      | OK|v25.10.6 |[SUPPORTED_ISOS](./#isos)
 |  2|[Mint](https://linuxmint.com/)        | OK||[download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
 |  3|[MX Linux](https://mxlinux.org/)      |OK| I suggest to remove mx-installer and mx-snapshot|)
 |  4|[EndeavourOS](https://endeavouros.com/)|OK||download](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
