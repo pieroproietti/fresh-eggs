@@ -129,13 +129,13 @@ There are several native repositories for penguins eggs depending on your distri
 * [penguins-eggs OpenSUSE repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-OPENSUSE.md)
 
 # DOWNLOADS
-All materials is under my [googledrive](https://drive.google.com/drive/folders/19fwjvsZiW0Dspu2Iq-fQN0J-PDbKBlYY), You can visit and browse.
+All materials is under my googledrive[penguins-eggs](https://drive.google.com/drive/folders/19fwjvsZiW0Dspu2Iq-fQN0J-PDbKBlYY), You can visit and browse.
 
 ### [ISOS](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
 ### [SUPPORTED-ISOS](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
 ### [PACKAGES](https://drive.google.com/drive/folders/1ojkzoWIFKDxtcor9z5NaqZlrVOYwFoVu)
 
-# [Donate](https://paypal.me/penguinseggs)
+# DONATE
 It took years of work to create the penguins-eggs, and I also incurred expenses for renting the site and subscribing to Google Gemini, for the artificial intelligence that is now indispensable.
 
 Thanks you!
