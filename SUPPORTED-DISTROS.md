@@ -135,6 +135,7 @@ All materials is under my googledrive [penguins-eggs](https://drive.google.com/d
 ### [SUPPORTED-ISOS](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
 ### [PACKAGES](https://drive.google.com/drive/folders/1ojkzoWIFKDxtcor9z5NaqZlrVOYwFoVu)
 
+![](./fresh-eggs.png)
 # DONATE
 It took years of work to create the penguins-eggs, and I also incurred expenses for renting the site and subscribing to Google Gemini, for the artificial intelligence that is now indispensable.
 
