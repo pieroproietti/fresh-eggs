@@ -1,3 +1,7 @@
+* [SUPPORTED_DISTROS](#supported-distros)
+* [REPOSITORIES](#repositoris)
+* [DOWNLOADS](#downloads)
+
 # SUPPORTED DISTROS
 
 I just take the list from [distrowatch](https://distrowatch.com/), to get an idea where we are.
@@ -114,7 +118,7 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 
 
 
-# penguins-eggs repos
+# REPOSITORIES
 * [penguins-eggs Alpine Linux repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md)
 * [penguins-eggs Arch Linux repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ARCHLINUX.md)
 * [penguins-eggs Debian, Ubuntu repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-DEBIAN-DEVUAN-UBUNTU.md)
@@ -122,7 +126,7 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 * [penguins-eggs Fedora repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-FEDORA.md)
 * [penguins-eggs OpenSUSE repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-OPENSUSE.md)
 
-# Download links
+# DOWNLOADS
 All materials is under my [googledrive](https://drive.google.com/drive/folders/19fwjvsZiW0Dspu2Iq-fQN0J-PDbKBlYY), You can visit and browse.
 
 ### [ISOS](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
