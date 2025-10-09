@@ -16,7 +16,7 @@ Thanks you!
 
 * on Arch - after you installed penguins-eggs - you can add [pengins-eggs-repo](https://github.com/pieroproietti/penguins-eggs-repo) to get fresh penguins-eggs packages. Just use: `sudo eggs tools ppa --add`. Penguins-eggs is on [Chaotic-AUR](https://aur.chaotic.cx/) too, this is the actual [PKGBUILD](https://aur.archlinux.org/packages/penguins-eggs).
 
-* on Manjaro penguins-eggs is already on the community repo. [pengins-eggs-repo](https://github.com/pieroproietti/penguins-eggs-repo/) can be added too.
+* on Manjaro penguins-eggs is already on the community repo. [pengins-eggs-repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md)) can be added too.
 
 * on [AlmaLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md), [AlpineLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md), [Fedora](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-FEDORA.md),  [openSuSE](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-OPENSUSE.md), [RockyLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md) follow the links to add native repo.
 
