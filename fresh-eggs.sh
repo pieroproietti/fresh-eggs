@@ -8,10 +8,10 @@
 # ==============================================================================
 
 # --- Variabili Globali ---
-LAST_RELEASE="25.10.30"
+LAST_RELEASE="25.11.3"
 URL_BASE="https://penguins-eggs.net/basket/packages"
 
-source ./ensure-node18.sh
+source ./ensure-node20.sh
 source ./prepare_pkgs.sh
 
 function title {
