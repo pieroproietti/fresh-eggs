@@ -45,9 +45,17 @@ rm ${DEST_OPENSUSE}/penguins-eggs*
 # Carica i nuovi
 cp ${SOURCE}/alpine/penguins-eggs*.apk ${DEST_ALPINE}
 cp ${SOURCE}/arch/penguins-eggs*.pkg.tar.zst ${DEST_AUR}
-cp ${SOURCE}/deb/pool/main/penguins-eggs*amd64.deb ${DEST_DEBS}
-cp ${SOURCE}/rpm/el9/penguins-eggs*.rpm ${DEST_EL9}
-cp ${SOURCE}/rpm/fedora/42/penguins-eggs*.rpm ${DEST_FEDORA}
+LAST_DEB=${ls ${SOURCE}/deb/pool/main/penguins-eggs*amd64.deb | sort -V | tail -n 1)
+cp "${LAST_DEB} ${DEST_DEBS}"
+
+LAST_EL9=${ls ${SOURCE}/rpm/el9/penguins-eggs*.rpm | sort -V | tail -n 1)
+cp "{$LAST__EL9} ${DEST_EL9}"
+
+LAST_FEDORA=${ls ${SOURCE}/rpm/fedora/42/penguins-eggs*.rpm | sort -V | tail -n 1)
+cp "${LAST_FEDORA} ${DEST_FEDORA}"
+
 cp ${SOURCE}/manjaro/penguins-eggs*.pkg.tar.zst ${DEST_MANJARO}
-cp ${SOURCE}/rpm/opensuse/leap/penguins-eggs*.rpm ${DEST_OPENSUSE}
+
+LAST_OPENSUSE=${ls ${SOURCE}/rpm/opensuse/leap/penguins-eggs*.rpm | sort -V | tail -n 1)
+cp "${LAST_OPESUSE} ${DEST_OPENSUSE}"
 
