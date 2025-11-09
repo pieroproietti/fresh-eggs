@@ -43,10 +43,10 @@ mv ${DEST_MANJARO}/penguins-eggs* ${MANJARO_OLD}
 rm ${DEST_OPENSUSE}/penguins-eggs* 
 
 # Carica i nuovi
-cp ${SOURCE}/alpime/penguins-eggs*.apk ${DEST_ALPINE}
+cp ${SOURCE}/alpine/penguins-eggs*.apk ${DEST_ALPINE}
 cp ${SOURCE}/arch/penguins-eggs*.pkg.tar.zst ${DEST_AUR}
-cp ${SOURCE}/debs/penguins-eggs*amd64.deb ${DEST_DEBS}
-cp ${SOURCE}/rpm/EL9/penguins-eggs*.rpm ${DEST_EL9}
+cp ${SOURCE}/deb/penguins-eggs*amd64.deb ${DEST_DEBS}
+cp ${SOURCE}/rpm/el9/penguins-eggs*.rpm ${DEST_EL9}
 cp ${SOURCE}/rpm/fedora/42/penguins-eggs*.rpm ${DEST_FEDORA}
 cp ${SOURCE}/manjaro/penguins-eggs*.pkg.tar.zst ${DEST_MANJARO}
 cp ${SOURCE}/rpm/opensuse/leap/penguins-eggs*.rpm ${DEST_OPENSUSE}
