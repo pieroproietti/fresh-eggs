@@ -42,20 +42,33 @@ rm ${DEST_FEDORA}/penguins-eggs*
 mv ${DEST_MANJARO}/penguins-eggs* ${MANJARO_OLD}
 rm ${DEST_OPENSUSE}/penguins-eggs* 
 
-# Carica i nuovi
-cp ${SOURCE}/alpine/penguins-eggs*.apk ${DEST_ALPINE}
-cp ${SOURCE}/arch/penguins-eggs*.pkg.tar.zst ${DEST_AUR}
-LAST_DEB=${ls ${SOURCE}/deb/pool/main/penguins-eggs*amd64.deb | sort -V | tail -n 1)
-cp "${LAST_DEB} ${DEST_DEBS}"
+#!/bin/bash
 
-LAST_EL9=${ls ${SOURCE}/rpm/el9/penguins-eggs*.rpm | sort -V | tail -n 1)
-cp "{$LAST__EL9} ${DEST_EL9}"
+# --- Alpine ---
+LAST_ALPINE=$(ls ${SOURCE}/alpine/penguins-eggs*.apk | sort -V | tail -n 1)
+cp "${LAST_ALPINE}" "${DEST_ALPINE}"
 
-LAST_FEDORA=${ls ${SOURCE}/rpm/fedora/42/penguins-eggs*.rpm | sort -V | tail -n 1)
-cp "${LAST_FEDORA} ${DEST_FEDORA}"
+# --- Arch ---
+LAST_AUR=$(ls ${SOURCE}/arch/penguins-eggs*.pkg.tar.zst | sort -V | tail -n 1)
+cp "${LAST_AUR}" "${DEST_AUR}"
 
-cp ${SOURCE}/manjaro/penguins-eggs*.pkg.tar.zst ${DEST_MANJARO}
+# --- Debian ---
+LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs*amd64.deb | sort -V | tail -n 1)
+cp "${LAST_DEB}" "${DEST_DEBS}"
 
-LAST_OPENSUSE=${ls ${SOURCE}/rpm/opensuse/leap/penguins-eggs*.rpm | sort -V | tail -n 1)
-cp "${LAST_OPESUSE} ${DEST_OPENSUSE}"
+# --- EL9 (RHEL/Rocky/Alma) ---
+LAST_EL9=$(ls ${SOURCE}/rpm/el9/penguins-eggs*.rpm | sort -V | tail -n 1)
+cp "${LAST_EL9}" "${DEST_EL9}"
+
+# --- Fedora ---
+LAST_FEDORA=$(ls ${SOURCE}/rpm/fedora/42/penguins-eggs*.rpm | sort -V | tail -n 1)
+cp "${LAST_FEDORA}" "${DEST_FEDORA}"
+
+# --- Manjaro ---
+LAST_MANJARO=$(ls ${SOURCE}/manjaro/penguins-eggs*.pkg.tar.zst | sort -V | tail -n 1)
+cp "${LAST_MANJARO}" "${DEST_MANJARO}"
+
+# --- openSUSE ---
+LAST_OPENSUSE=$(ls ${SOURCE}/rpm/opensuse/leap/penguins-eggs*.rpm | sort -V | tail -n 1)
+cp "${LAST_OPENSUSE}" "${DEST_OPENSUSE}"
 
