@@ -35,7 +35,7 @@ mkdir -p ${DEST_OPENSUSE}
 
 # Sposta/elimina i vecchi pacchetti
 mv ${DEST_ALPINE}/penguins-eggs* ${ALPINE_OLD}
-mv ${DEST_AUR}/penguins-eggs* ${AUR_OLD_OLD}
+mv ${DEST_AUR}/penguins-eggs* ${AUR_OLD}
 rm ${DEST_DEBS}/penguins-eggs* 
 rm ${DEST_EL9}/penguins-eggs* 
 rm ${DEST_FEDORA}/penguins-eggs* 
