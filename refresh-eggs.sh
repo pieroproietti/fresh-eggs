@@ -21,7 +21,7 @@ DEST_OPENSUSE="${DEST}/opensuse"
 
 # pacchetti old
 ALPINE_OLD="${DEST_ALPINE}/old"
-AUR_OLD="${DEST_AUR}old"
+AUR_OLD="${DEST_AUR}/old"
 MANJARO_OLD="${DEST_MANJARO}/old"
 
 # Crea struttura
