@@ -45,8 +45,18 @@ rm ${DEST_OPENSUSE}/penguins-eggs*
 #!/bin/bash
 
 # --- Alpine ---
-LAST_ALPINE=$(ls ${SOURCE}/alpine/penguins-eggs*.apk | sort -V | tail -n 1)
-cp "${LAST_ALPINE}" "${DEST_ALPINE}"
+# --- Alpine ---
+# Cerca e copia l'ultimo pacchetto base (il [0-9] esclude -doc e -bash-completion)
+LAST_ALPINE_BASE=$(ls ${SOURCE}/alpine/penguins-eggs-[0-9]*.apk | sort -V | tail -n 1)
+cp "${LAST_ALPINE_BASE}" "${DEST_ALPINE}"
+
+# Cerca e copia l'ultimo pacchetto bash-completion
+LAST_ALPINE_BASH=$(ls ${SOURCE}/alpine/penguins-eggs-bash-completion*.apk | sort -V | tail -n 1)
+cp "${LAST_ALPINE_BASH}" "${DEST_ALPINE}"
+
+# Cerca e copia l'ultimo pacchetto doc
+LAST_ALPINE_DOC=$(ls ${SOURCE}/alpine/penguins-eggs-doc*.apk | sort -V | tail -n 1)
+cp "${LAST_ALPINE_DOC}" "${DEST_ALPINE}"
 
 # --- Arch ---
 LAST_AUR=$(ls ${SOURCE}/arch/penguins-eggs*.pkg.tar.zst | sort -V | tail -n 1)
