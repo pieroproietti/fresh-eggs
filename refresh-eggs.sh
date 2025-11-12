@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # ==============================================================================
 # Script di installazione per penguins-eggs
@@ -7,7 +8,7 @@
 # ==============================================================================
 
 # --- Variabili Globali ---
-LAST_RELEASE="25.11.8"
+#LAST_RELEASE="25.11.12"
 SOURCE="/var/www/html/repos"
 DEST="/home/artisan/basket/packages"
 # Alpine
@@ -42,9 +43,7 @@ rm ${DEST_FEDORA}/penguins-eggs*
 mv ${DEST_MANJARO}/penguins-eggs* ${MANJARO_OLD}
 rm ${DEST_OPENSUSE}/penguins-eggs* 
 
-#!/bin/bash
 
-# --- Alpine ---
 # --- Alpine ---
 # Cerca e copia l'ultimo pacchetto base (il [0-9] esclude -doc e -bash-completion)
 LAST_ALPINE_BASE=$(ls ${SOURCE}/alpine/penguins-eggs-[0-9]*.apk | sort -V | tail -n 1)
