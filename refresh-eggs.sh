@@ -65,7 +65,7 @@ cp "${LAST_AUR}" "${DEST_AUR}"
 LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs*amd64.deb | sort -V | tail -n 1)
 cp "${LAST_DEB}" "${DEST_DEBS}"
 
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs*arm4.deb | sort -V | tail -n 1)
+LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs*arm64.deb | sort -V | tail -n 1)
 cp "${LAST_DEB}" "${DEST_DEBS}"
 
 LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs*i386.deb | sort -V | tail -n 1)
