@@ -9,10 +9,7 @@
 
 # --- Variabili Globali ---
 SOURCE="/var/www/html/repos"
-DEST="/eggs/"
-
-# remove all
-rm -fr $DEST
+DEST="/home/artisan/basket/packages"
 
 # Alpine
 DEST_ALPINE="${DEST}/alpine/x86_64"
@@ -23,14 +20,28 @@ DEST_FEDORA="${DEST}/fedora"
 DEST_MANJARO="${DEST}/manjaro"
 DEST_OPENSUSE="${DEST}/opensuse"
 
+# pacchetti old
+ALPINE_OLD="${DEST_ALPINE}/old"
+AUR_OLD="${DEST_AUR}/old"
+MANJARO_OLD="${DEST_MANJARO}/old"
+
 # Crea struttura
-mkdir -p ${DEST_ALPINE}
-mkdir -p ${DEST_AUR}
+mkdir -p ${ALPINE_OLD}
+mkdir -p ${AUR_OLD}
 mkdir -p ${DEST_DEBS}
 mkdir -p ${DEST_EL9}
 mkdir -p ${DEST_FEDORA}
-mkdir -p ${DEST_MANJARO}
+mkdir -p ${MANJARO_OLD}
 mkdir -p ${DEST_OPENSUSE}
+
+# Sposta/elimina i vecchi pacchetti
+mv ${DEST_ALPINE}/penguins-eggs* ${ALPINE_OLD}
+mv ${DEST_AUR}/penguins-eggs* ${AUR_OLD}
+rm ${DEST_DEBS}/penguins-eggs* 
+rm ${DEST_EL9}/penguins-eggs* 
+rm ${DEST_FEDORA}/penguins-eggs* 
+mv ${DEST_MANJARO}/penguins-eggs* ${MANJARO_OLD}
+rm ${DEST_OPENSUSE}/penguins-eggs* 
 
 
 # --- Alpine ---
