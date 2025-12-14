@@ -12,7 +12,7 @@ LAST_VERSION="25.12.8"
 LAST_RELEASE="2"
 URL_BASE="https://penguins-eggs.net/basket/packages"
 
-source ./ensure-node20.sh
+source ./ensure-node22.sh
 source ./prepare_pkgs.sh
 
 function title {
