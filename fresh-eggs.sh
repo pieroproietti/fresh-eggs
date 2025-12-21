@@ -69,7 +69,7 @@ case "$ID" in
         ;;
 
     debian | devuan| ubuntu)
-        ensure_node18
+        ensure_node22
         title
         echo "Distro detected: $PRETTY_NAME"
         echo ""
