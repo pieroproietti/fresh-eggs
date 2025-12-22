@@ -8,8 +8,8 @@
 # ==============================================================================
 
 # --- Variabili Globali ---
-LAST_VERSION="25.12.16"
-LAST_RELEASE="6"
+LAST_VERSION="25.12.22"
+LAST_RELEASE="1"
 URL_BASE="https://penguins-eggs.net/basket/packages"
 
 source ./ensure-node22.sh
