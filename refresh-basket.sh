@@ -71,6 +71,10 @@ cp "${LAST_DEB}" "${DEST_DEBS}"
 LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs*i386.deb | sort -V | tail -n 1)
 cp "${LAST_DEB}" "${DEST_DEBS}"
 
+LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs*riscv64.deb | sort -V | tail -n 1)
+cp "${LAST_DEB}" "${DEST_DEBS}"
+
+
 # --- EL9 (RHEL/Rocky/Alma) ---
 LAST_EL9=$(ls ${SOURCE}/rpm/el9/penguins-eggs*.rpm | sort -V | tail -n 1)
 cp "${LAST_EL9}" "${DEST_EL9}"
