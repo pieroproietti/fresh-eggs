@@ -68,6 +68,10 @@ case "$ID" in
         prepare_aur
         ;;
 
+    cachyos)
+        prepare_aur
+        ;;
+
     debian | devuan| ubuntu)
         ensure_node22
         title
