@@ -28,7 +28,7 @@ function ensure_node22() {
   done
 
   # add nodesource repository
-  echo "We need tp add nodejs>${NODE_MAJOR_VERSION} via nodesource repo"
+  echo "We need to add nodejs>${NODE_MAJOR_VERSION} via nodesource repo"
   sleep 2
   wait_for_apt
   curl -fsSL "https://deb.nodesource.com/setup_$NODE_MAJOR_VERSION.x" | bash -

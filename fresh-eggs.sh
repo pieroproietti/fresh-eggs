@@ -104,7 +104,7 @@ case "$ID" in
                 ;;
 
             *debian*)
-                ensure_node18
+                ensure_node22
                 title
                 echo "Distro detected: $PRETTY_NAME"
                 echo ""
