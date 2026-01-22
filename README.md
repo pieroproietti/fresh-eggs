@@ -12,13 +12,15 @@ Thanks you!
 
 # Notes
 ## Native repositories
-* on Debian/Devuan/Ubuntu and derivatives - after you installed penguins-eggs - it's possible to add  [pengins-eggs-repo](https://github.com/pieroproietti/penguins-eggs-repo) to get updates via apt. To enable it: `sudo eggs tools ppa --add`;
+* on Almalinux, Arch, Debian, Devuan, Fedora, ManjaroopenSuse, RockyLinux and Ubuntu - after you installed penguins-eggs - you can add [pengins-eggs-repo](https://github.com/pieroproietti/penguins-eggs-repo) to get fresh penguins-eggs packages. Just use: `sudo eggs tools ppa --add`. 
 
-* on Arch - after you installed penguins-eggs - you can add [pengins-eggs-repo](https://github.com/pieroproietti/penguins-eggs-repo) to get fresh penguins-eggs packages. Just use: `sudo eggs tools ppa --add`. Penguins-eggs is on [Chaotic-AUR](https://aur.chaotic.cx/) too, this is the actual [PKGBUILD](https://aur.archlinux.org/packages/penguins-eggs).
+* On Arch Linux penguins-eggs is on [Chaotic-AUR](https://aur.chaotic.cx/) too. Tis is the actual [PKGBUILD](https://aur.archlinux.org/packages/penguins-eggs).
+
+* On Debian/Devuan/Ubuntu and derivatives - you can use [penguins-eggs-ppa](https://github.com/pieroproietti/penguins-eggs-ppa) to get fresh penguins-eggs packages. Read the [README](https://github.com/pieroproietti/penguins-eggs-ppa/blob/master/README.md) for more info.
 
 * on Manjaro penguins-eggs is already on the community repo. [pengins-eggs-repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md)) can be added too.
 
-* on [AlmaLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md), [AlpineLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md), [Fedora](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-FEDORA.md),  [openSuSE](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-OPENSUSE.md), [RockyLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md) follow the links to add native repo.
+* Other documentation is on [AlmaLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md), [AlpineLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md), [Fedora](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-FEDORA.md),  [openSuSE](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-OPENSUSE.md), [RockyLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md).
 
 ## nodejs >= 22.x
 * The script ensures that nodejs >= 22.x is available. If not found in the official repositories, it will attempt to configure the [nodesource repo](https://github.com/nodesource/distributions) to install it.
