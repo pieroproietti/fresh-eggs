@@ -18,7 +18,7 @@ Thanks you!
 
 * On Debian/Devuan/Ubuntu and derivatives - you can use [penguins-eggs-ppa](https://github.com/pieroproietti/penguins-eggs-ppa) to get fresh penguins-eggs packages. Read the [README](https://github.com/pieroproietti/penguins-eggs-ppa/blob/master/README.md) for more info.
 
-* on Manjaro penguins-eggs is already on the community repo. [pengins-eggs-repo](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md)) can be added too.
+* on Manjaro penguins-eggs is already on the community repo.
 
 * Other documentation is on [AlmaLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md), [AlpineLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md), [Fedora](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-FEDORA.md),  [openSuSE](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-OPENSUSE.md), [RockyLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md).
 
