@@ -20,8 +20,8 @@ Thanks you!
 
 * on [AlmaLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md), [AlpineLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ALPINE.md), [Fedora](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-FEDORA.md),  [openSuSE](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-OPENSUSE.md), [RockyLinux](https://github.com/pieroproietti/penguins-eggs/blob/master/DOCS/INSTALL-ENTERPRISE-LINUX.md) follow the links to add native repo.
 
-## nodejs > 18.x
-* on some distributions, mainly Ubuntu bionic and derivatives, where nodejs >=18 is not available, you can still install penguins-eggs installing nodejs=16 from [nodesource repo](https://github.com/nodesource/distributions?tab=readme-ov-file#debian-and-ubuntu-based-distributions) and manually installing  the special package [penguins-eggs-25.x.x-1bionic.amd64.deb](https://penguins-eggs.net/basket/index.php/packages/?p=packages%2Fdebs) we continue to mantain.
+## nodejs >= 22.x
+* The script ensures that nodejs >= 22.x is available. If not found in the official repositories, it will attempt to configure the [nodesource repo](https://github.com/nodesource/distributions) to install it.
 
 # USAGE
 
@@ -35,3 +35,7 @@ And follow instructions.
 
 # Fork it!
 This is a short and simple script, you are encouraged to fork it and adapt it to your needs. Of course PR will welcomed!
+
+Copyright (c) 2022 - 2026
+[Piero Proietti](https://penguins-eggs.net/about-me.html), dual licensed under
+the MIT or GPL Version 2 licenses.
