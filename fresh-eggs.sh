@@ -8,7 +8,7 @@
 # ==============================================================================
 
 # --- Variabili Globali ---
-LAST_VERSION="26.1.26"
+LAST_VERSION="26.1.27"
 LAST_RELEASE="1"
 URL_BASE="https://penguins-eggs.net/basket/packages"
 
