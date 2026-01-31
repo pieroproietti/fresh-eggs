@@ -7,8 +7,8 @@ function wait_for_apt {
   done
 }
 
-function ensure_node22() {
-  NODE_MAJOR_VERSION="22"
+function ensure_node20() {
+  NODE_MAJOR_VERSION="20"
   local available_versions
   available_versions=$(LANG=C apt-cache policy nodejs | awk '/Candidate:/ {print $2}' | cut -d'.' -f1)
   

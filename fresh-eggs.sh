@@ -12,7 +12,7 @@ LAST_VERSION="26.1.29"
 LAST_RELEASE="1"
 URL_BASE="https://penguins-eggs.net/basket/packages"
 
-source ./ensure-node22.sh
+source ./ensure-node20.sh
 source ./prepare_pkgs.sh
 
 function title {
@@ -73,7 +73,7 @@ case "$ID" in
         ;;
 
     debian | devuan| ubuntu)
-        ensure_node22
+        ensure_node20
         title
         echo "Distro detected: $PRETTY_NAME"
         echo ""
@@ -104,7 +104,7 @@ case "$ID" in
                 ;;
 
             *debian*)
-                ensure_node22
+                ensure_node20
                 title
                 echo "Distro detected: $PRETTY_NAME"
                 echo ""
