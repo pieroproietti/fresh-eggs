@@ -25,7 +25,7 @@ function prepare_alpine {
 function prepare_debs {
     FOLDER="debs"
     ARCHITECTURE=$(dpkg --print-architecture)
-    PACKAGES=("penguins-eggs-${LAST_VERSION}-${LAST_RELEASE}-${ARCHITECTURE}.deb")
+    PACKAGES=("penguins-eggs_${LAST_VERSION}-${LAST_RELEASE}_${ARCHITECTURE}.deb")
     # in debian -y va dopo!
     INSTALL_CMDS=(
         "apt-get install /tmp/${PACKAGES[0]} -y"
