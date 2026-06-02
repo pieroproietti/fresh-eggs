@@ -59,10 +59,12 @@ cp "${LAST_ALPINE_DOC}" "${DEST_ALPINE}"
 
 # --- Arch ---
 LAST_AUR=$(ls ${SOURCE}/arch/penguins-eggs*.pkg.tar.zst | sort -V | tail -n 1)
+echo "$LAST_AUR"
 cp "${LAST_AUR}" "${DEST_AUR}"
 
 # --- Debian ---
 LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_26.*amd64.deb | sort -V | tail -n 1)
+echo "$LAST_DEB"
 cp "${LAST_DEB}" "${DEST_DEBS}"
 
 LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_26.*arm64.deb | sort -V | tail -n 1)
