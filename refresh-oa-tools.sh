@@ -9,7 +9,7 @@ SOURCE="/var/www/html/repos"
 DEST="/eggs/"
 
 # remove all
-rm -fr $DEST
+#rm -fr $DEST
 
 # Alpine
 DEST_ALPINE="${DEST}/alpine/x86_64"
