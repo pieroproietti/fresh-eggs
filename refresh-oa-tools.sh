@@ -40,7 +40,7 @@ LAST_AUR=$(ls ${SOURCE}/arch/oa-tools-arch*.pkg.tar.zst | sort -V | tail -n 1)
 cp "${LAST_AUR}" "${DEST_AUR}"
 
 # --- Debian ---
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/oa-tools-*.deb | sort -V | tail -n 1)
+LAST_DEB=$(ls ${SOURCE}/deb/pool/main/oa-tools_*.deb | sort -V | tail -n 1)
 cp "${LAST_DEB}" "${DEST_DEBS}"
 
 # --- Fedora ---
