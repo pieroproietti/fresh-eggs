@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==============================================================================
-# Script di copua per oa-tools
+# Script di copia per oa-tools su /eggs
 # ==============================================================================
 
 # --- Variabili Globali ---
@@ -40,18 +40,8 @@ LAST_AUR=$(ls ${SOURCE}/arch/oa-tools-arch*.pkg.tar.zst | sort -V | tail -n 1)
 cp "${LAST_AUR}" "${DEST_AUR}"
 
 # --- Debian ---
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/oa-tools-*amd64.deb | sort -V | tail -n 1)
+LAST_DEB=$(ls ${SOURCE}/deb/pool/main/oa-tools-*.deb | sort -V | tail -n 1)
 cp "${LAST_DEB}" "${DEST_DEBS}"
-
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/oa-tools-*arm64.deb | sort -V | tail -n 1)
-cp "${LAST_DEB}" "${DEST_DEBS}"
-
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/oa-tools-*i386.deb | sort -V | tail -n 1)
-cp "${LAST_DEB}" "${DEST_DEBS}"
-
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/oa-tools-*riscv64.deb | sort -V | tail -n 1)
-cp "${LAST_DEB}" "${DEST_DEBS}"
-
 
 # --- Fedora ---
 LAST_FEDORA=$(ls ${SOURCE}/rpm/fedora/42/oa-tools*.rpm | sort -V | tail -n 1)

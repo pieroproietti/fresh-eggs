@@ -1,10 +1,7 @@
 #!/bin/bash
 
 # ==============================================================================
-# Script di installazione per penguins-eggs
-# - Rileva la distribuzione
-# - Definisce i pacchetti da scaricare e i comandi da eseguire
-# - Esegue il download e l'installazione in un unico flusso
+# Script di copia per penguins-eggs su /eggs
 # ==============================================================================
 
 # --- Variabili Globali ---
