@@ -91,3 +91,23 @@ cp "${LAST_MANJARO}" "${DEST_MANJARO}"
 LAST_OPENSUSE=$(ls ${SOURCE}/rpm/opensuse/leap/penguins-eggs*.rpm | sort -V | tail -n 1)
 cp "${LAST_OPENSUSE}" "${DEST_OPENSUSE}"
 
+# --- LATEST ---
+# Genera il file LATEST letto da fresh-eggs.sh per conoscere versione e release
+# correnti. Ricava i valori dal nome del deb amd64 appena copiato,
+# es. penguins-eggs_26.6.2-1_amd64.deb -> 26.6.2 e 1
+PKG=$(basename "$(ls ${DEST_DEBS}/penguins-eggs_*amd64.deb | sort -V | tail -n 1)")
+VER_REL="${PKG#penguins-eggs_}"
+VER_REL="${VER_REL%%_*}"
+LAST_VERSION="${VER_REL%-*}"
+LAST_RELEASE="${VER_REL##*-}"
+
+if [ -n "$LAST_VERSION" ] && [ -n "$LAST_RELEASE" ]; then
+    cat > "${DEST}/LATEST" <<EOF
+LAST_VERSION=${LAST_VERSION}
+LAST_RELEASE=${LAST_RELEASE}
+EOF
+    echo "LATEST aggiornato: ${LAST_VERSION}-${LAST_RELEASE}"
+else
+    echo "ERRORE: impossibile ricavare la versione, LATEST non aggiornato" >&2
+fi
+
