@@ -20,8 +20,11 @@ EGGS="/eggs"
 
 # Upload su SourceForge: richiede la chiave ssh del server registrata
 # sull'account (sourceforge.net -> Account Settings -> SSH Settings)
+# oppure la password nel file SF_PASSWD_FILE (fuori dal repo, chmod 600;
+# in tal caso serve sshpass installato).
 SF_USER="pproietti"
 SF_DEST="/home/frs/project/penguins-eggs/Packages"
+SF_PASSWD_FILE="$(dirname "$0")/../.sf-passwd.txt"
 
 ERRORS=0
 
@@ -157,8 +160,16 @@ EOF
 # Carica /eggs su SourceForge. Niente --delete: come con FileZilla,
 # i pacchetti delle release precedenti restano online.
 function upload_sourceforge {
+    local rsh="ssh -o StrictHostKeyChecking=accept-new"
+    if [ -f "${SF_PASSWD_FILE}" ]; then
+        if ! command -v sshpass >/dev/null 2>&1; then
+            echo "ERRORE: trovato ${SF_PASSWD_FILE} ma sshpass non è installato" >&2
+            exit 1
+        fi
+        rsh="sshpass -f ${SF_PASSWD_FILE} ${rsh}"
+    fi
     echo "Upload di ${EGGS}/ su SourceForge (${SF_DEST})..."
-    if ! rsync -av -e ssh "${EGGS}/" "${SF_USER}@frs.sourceforge.net:${SF_DEST}/"; then
+    if ! rsync -av -e "${rsh}" "${EGGS}/" "${SF_USER}@frs.sourceforge.net:${SF_DEST}/"; then
         echo "ERRORE: upload su SourceForge fallito" >&2
         exit 1
     fi
