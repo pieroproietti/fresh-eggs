@@ -4,12 +4,13 @@
 # Aggiorna le destinazioni di distribuzione con gli ultimi pacchetti
 # prodotti dal CI in /var/www/html/repos.
 #
-# Uso: ./refresh.sh basket|eggs|oa-tools [...]
-#   basket    aggiorna il basket (penguins-eggs.net/basket) e genera LATEST
-#   eggs      svuota /eggs e lo ripopola con penguins-eggs
-#   oa-tools  aggiunge oa-tools a /eggs (eseguire dopo eggs)
+# Uso: ./refresh.sh basket|sourceforge [...]
+#   basket       aggiorna il basket (penguins-eggs.net/basket) con
+#                penguins-eggs + oa-tools e genera LATEST
+#   sourceforge  svuota /eggs e lo ripopola con penguins-eggs + oa-tools,
+#                pronto per il download e l'upload su sourceforge.net
 #
-# I target si possono combinare, es: ./refresh.sh eggs oa-tools
+# I target si possono combinare, es: ./refresh.sh basket sourceforge
 # ==============================================================================
 
 SOURCE="/var/www/html/repos"
@@ -109,12 +110,14 @@ function copy_oa_tools {
 # in old/, gli altri eliminati (gli el* li ripulisce il ciclo EL).
 # Al primo giro le cartelle sono vuote: i mv falliscono in silenzio.
 function archive_old_basket {
-    local dest="$1"
+    local dest="$1" pkg
     mkdir -p "${dest}/alpine/x86_64/old" "${dest}/aur/old" "${dest}/manjaro/old"
-    mv ${dest}/alpine/x86_64/penguins-eggs* "${dest}/alpine/x86_64/old" 2>/dev/null
-    mv ${dest}/aur/penguins-eggs* "${dest}/aur/old" 2>/dev/null
-    mv ${dest}/manjaro/penguins-eggs* "${dest}/manjaro/old" 2>/dev/null
-    rm -f ${dest}/debs/penguins-eggs* ${dest}/fedora/penguins-eggs* ${dest}/opensuse/penguins-eggs*
+    for pkg in penguins-eggs oa-tools; do
+        mv ${dest}/alpine/x86_64/${pkg}* "${dest}/alpine/x86_64/old" 2>/dev/null
+        mv ${dest}/aur/${pkg}* "${dest}/aur/old" 2>/dev/null
+        mv ${dest}/manjaro/${pkg}* "${dest}/manjaro/old" 2>/dev/null
+        rm -f ${dest}/debs/${pkg}* ${dest}/fedora/${pkg}* ${dest}/opensuse/${pkg}*
+    done
 }
 
 # Genera il file LATEST letto da fresh-eggs.sh per conoscere versione e
@@ -150,7 +153,7 @@ EOF
 # ==============================================================================
 
 if [ $# -eq 0 ]; then
-    echo "Uso: $0 basket|eggs|oa-tools [...]" >&2
+    echo "Uso: $0 basket|sourceforge [...]" >&2
     exit 1
 fi
 
@@ -160,18 +163,17 @@ for target in "$@"; do
         basket)
             archive_old_basket "${BASKET}"
             copy_eggs "${BASKET}"
+            copy_oa_tools "${BASKET}"
             DID_BASKET=1
             ;;
-        eggs)
+        sourceforge)
             # :? blocca il comando se EGGS fosse vuota
             rm -fr "${EGGS:?}"
             copy_eggs "${EGGS}"
-            ;;
-        oa-tools)
             copy_oa_tools "${EGGS}"
             ;;
         *)
-            echo "ERRORE: target sconosciuto: $target (basket|eggs|oa-tools)" >&2
+            echo "ERRORE: target sconosciuto: $target (basket|sourceforge)" >&2
             exit 1
             ;;
     esac
