@@ -39,7 +39,7 @@ function prepare_fedora_or_el9 {
         INSTALL_CMDS=("dnf install -y /tmp/${PACKAGES[0]}")
     else 
         FOLDER="fedora"
-        PACKAGES=("penguins-eggs-${LAST_VERSION}-${LAST_RELEASE}.fc42.x86_64.rpm")
+        PACKAGES=("penguins-eggs-${LAST_VERSION}-${LAST_RELEASE}.${FEDORA_TAG}.x86_64.rpm")
         INSTALL_CMDS=("dnf install -y /tmp/${PACKAGES[0]}")
     fi
 }

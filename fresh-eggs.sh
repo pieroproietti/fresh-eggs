@@ -13,6 +13,7 @@
 # refresh-basket.sh ad ogni pubblicazione.
 LAST_VERSION="26.6.2"
 LAST_RELEASE="1"
+FEDORA_TAG="fc42"
 URL_BASE="https://penguins-eggs.net/basket/packages"
 
 source ./ensure-node.sh
@@ -26,13 +27,17 @@ function fetch_latest_version {
         latest=$(wget -qO- "${URL_BASE}/LATEST" 2>/dev/null)
     fi
 
-    local remote_version remote_release
+    local remote_version remote_release remote_fctag
     remote_version=$(echo "$latest" | sed -n 's/^LAST_VERSION=//p')
     remote_release=$(echo "$latest" | sed -n 's/^LAST_RELEASE=//p')
+    remote_fctag=$(echo "$latest" | sed -n 's/^FEDORA_TAG=//p')
 
     if [[ "$remote_version" =~ ^[0-9]+(\.[0-9]+)*$ ]] && [[ "$remote_release" =~ ^[0-9]+$ ]]; then
         LAST_VERSION="$remote_version"
         LAST_RELEASE="$remote_release"
+        if [[ "$remote_fctag" =~ ^fc[0-9]+$ ]]; then
+            FEDORA_TAG="$remote_fctag"
+        fi
         echo "penguins-eggs version: ${LAST_VERSION}-${LAST_RELEASE}"
     else
         echo ">> Warning: could not read ${URL_BASE}/LATEST, using fallback version ${LAST_VERSION}-${LAST_RELEASE}"

@@ -44,7 +44,9 @@ LAST_DEB=$(ls ${SOURCE}/deb/pool/main/oa-tools_*.deb | sort -V | tail -n 1)
 cp "${LAST_DEB}" "${DEST_DEBS}"
 
 # --- Fedora ---
-LAST_FEDORA=$(ls ${SOURCE}/rpm/fedora/42/oa-tools*.rpm | sort -V | tail -n 1)
+# Usa l'ultima release di Fedora presente in ${SOURCE}/rpm/fedora/
+FEDORA_DIR=$(ls -d ${SOURCE}/rpm/fedora/*/ | sort -V | tail -n 1)
+LAST_FEDORA=$(ls ${FEDORA_DIR}oa-tools*.rpm | sort -V | tail -n 1)
 cp "${LAST_FEDORA}" "${DEST_FEDORA}"
 
 # --- Manjaro ---

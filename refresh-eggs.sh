@@ -48,16 +48,16 @@ LAST_AUR=$(ls ${SOURCE}/arch/penguins-eggs*.pkg.tar.zst | sort -V | tail -n 1)
 cp "${LAST_AUR}" "${DEST_AUR}"
 
 # --- Debian ---
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_26.*amd64.deb | sort -V | tail -n 1)
+LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_*amd64.deb | sort -V | tail -n 1)
 cp "${LAST_DEB}" "${DEST_DEBS}"
 
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_26.*arm64.deb | sort -V | tail -n 1)
+LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_*arm64.deb | sort -V | tail -n 1)
 cp "${LAST_DEB}" "${DEST_DEBS}"
 
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_26.*i386.deb | sort -V | tail -n 1)
+LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_*i386.deb | sort -V | tail -n 1)
 cp "${LAST_DEB}" "${DEST_DEBS}"
 
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_26.*riscv64.deb | sort -V | tail -n 1)
+LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_*riscv64.deb | sort -V | tail -n 1)
 cp "${LAST_DEB}" "${DEST_DEBS}"
 
 # --- EL9 (RHEL/Rocky/Alma) ---
@@ -65,7 +65,9 @@ LAST_EL9=$(ls ${SOURCE}/rpm/el9/penguins-eggs*.rpm | sort -V | tail -n 1)
 cp "${LAST_EL9}" "${DEST_EL9}"
 
 # --- Fedora ---
-LAST_FEDORA=$(ls ${SOURCE}/rpm/fedora/42/penguins-eggs*.rpm | sort -V | tail -n 1)
+# Usa l'ultima release di Fedora presente in ${SOURCE}/rpm/fedora/
+FEDORA_DIR=$(ls -d ${SOURCE}/rpm/fedora/*/ | sort -V | tail -n 1)
+LAST_FEDORA=$(ls ${FEDORA_DIR}penguins-eggs*.rpm | sort -V | tail -n 1)
 cp "${LAST_FEDORA}" "${DEST_FEDORA}"
 
 # --- Manjaro ---
