@@ -32,12 +32,17 @@ function prepare_debs {
     )
 }
 
-function prepare_fedora_or_el9 {
-    if [[ "$VERSION_ID" == 9* ]]; then
-        FOLDER="el9"
-        PACKAGES=("penguins-eggs-${LAST_VERSION}-${LAST_RELEASE}.el9.x86_64.rpm")
+function prepare_fedora_or_el {
+    # La famiglia RHEL (rhel, almalinux, rocky, centos...) usa i pacchetti
+    # elN in base alla major version (el9, el10, ...); Fedora e derivate
+    # (es. nobara, con ID_LIKE=fedora ma senza rhel) usano il pacchetto
+    # fedora corrente.
+    if [[ "$ID" == "rhel" || "$ID_LIKE" == *rhel* ]]; then
+        EL_MAJOR="${VERSION_ID%%.*}"
+        FOLDER="el${EL_MAJOR}"
+        PACKAGES=("penguins-eggs-${LAST_VERSION}-${LAST_RELEASE}.el${EL_MAJOR}.x86_64.rpm")
         INSTALL_CMDS=("dnf install -y /tmp/${PACKAGES[0]}")
-    else 
+    else
         FOLDER="fedora"
         PACKAGES=("penguins-eggs-${LAST_VERSION}-${LAST_RELEASE}.${FEDORA_TAG}.x86_64.rpm")
         INSTALL_CMDS=("dnf install -y /tmp/${PACKAGES[0]}")

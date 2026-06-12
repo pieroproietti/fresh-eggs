@@ -111,7 +111,7 @@ case "$ID" in
         ;;
 
     fedora)
-        prepare_fedora_or_el9
+        prepare_fedora_or_el
         ;;
 
     manjaro | biglinux)
@@ -142,7 +142,7 @@ case "$ID" in
                 ;;
 
             *fedora*)
-                prepare_fedora_or_el9
+                prepare_fedora_or_el
                 ;;
             # Aggiungere altri fallback se necessario
             *)

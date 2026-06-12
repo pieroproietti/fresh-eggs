@@ -30,7 +30,6 @@ function copy_last {
 DEST_ALPINE="${DEST}/alpine/x86_64"
 DEST_AUR="${DEST}/aur"
 DEST_DEBS="${DEST}/debs"
-DEST_EL9="${DEST}/el9"
 DEST_FEDORA="${DEST}/fedora"
 DEST_MANJARO="${DEST}/manjaro"
 DEST_OPENSUSE="${DEST}/opensuse"
@@ -39,7 +38,6 @@ DEST_OPENSUSE="${DEST}/opensuse"
 mkdir -p ${DEST_ALPINE}
 mkdir -p ${DEST_AUR}
 mkdir -p ${DEST_DEBS}
-mkdir -p ${DEST_EL9}
 mkdir -p ${DEST_FEDORA}
 mkdir -p ${DEST_MANJARO}
 mkdir -p ${DEST_OPENSUSE}

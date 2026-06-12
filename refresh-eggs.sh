@@ -32,7 +32,6 @@ rm -fr "${DEST:?}"
 DEST_ALPINE="${DEST}/alpine/x86_64"
 DEST_AUR="${DEST}/aur"
 DEST_DEBS="${DEST}/debs"
-DEST_EL9="${DEST}/el9"
 DEST_FEDORA="${DEST}/fedora"
 DEST_MANJARO="${DEST}/manjaro"
 DEST_OPENSUSE="${DEST}/opensuse"
@@ -41,7 +40,6 @@ DEST_OPENSUSE="${DEST}/opensuse"
 mkdir -p ${DEST_ALPINE}
 mkdir -p ${DEST_AUR}
 mkdir -p ${DEST_DEBS}
-mkdir -p ${DEST_EL9}
 mkdir -p ${DEST_FEDORA}
 mkdir -p ${DEST_MANJARO}
 mkdir -p ${DEST_OPENSUSE}
@@ -62,8 +60,18 @@ copy_last "${DEST_DEBS}" ${SOURCE}/deb/pool/main/penguins-eggs_*arm64.deb
 copy_last "${DEST_DEBS}" ${SOURCE}/deb/pool/main/penguins-eggs_*i386.deb
 copy_last "${DEST_DEBS}" ${SOURCE}/deb/pool/main/penguins-eggs_*riscv64.deb
 
-# --- EL9 (RHEL/Rocky/Alma) ---
-copy_last "${DEST_EL9}" ${SOURCE}/rpm/el9/penguins-eggs*.rpm
+# --- EL (RHEL/Rocky/Alma: el9, el10, ...) ---
+# Copia ogni release EL presente in ${SOURCE}/rpm/
+for EL_DIR in ${SOURCE}/rpm/el[0-9]*/; do
+    if [ ! -d "$EL_DIR" ]; then
+        echo "ERRORE: nessuna directory el* in ${SOURCE}/rpm/" >&2
+        ERRORS=1
+        break
+    fi
+    EL_NAME=$(basename "$EL_DIR")
+    mkdir -p "${DEST}/${EL_NAME}"
+    copy_last "${DEST}/${EL_NAME}" ${EL_DIR}penguins-eggs*.rpm
+done
 
 # --- Fedora ---
 # Usa l'ultima release di Fedora presente in ${SOURCE}/rpm/fedora/
