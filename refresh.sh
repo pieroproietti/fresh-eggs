@@ -114,17 +114,15 @@ function copy_oa_tools {
     copy_last "${dest}/opensuse" ${SOURCE}/rpm/opensuse/leap/oa-tools*.rpm
 }
 
-# Nel basket i vecchi pacchetti di alpine/aur/manjaro vengono archiviati
-# in old/, gli altri eliminati (gli el* li ripulisce il ciclo EL).
-# Al primo giro le cartelle sono vuote: i mv falliscono in silenzio.
-function archive_old_basket {
+# Rimuove dal basket i pacchetti del giro precedente prima di copiare
+# i nuovi (gli el* li ripulisce il ciclo EL). Le versioni passate restano
+# disponibili nelle release su GitHub: niente più archivio in old/.
+function clean_basket {
     local dest="$1" pkg
-    mkdir -p "${dest}/alpine/x86_64/old" "${dest}/aur/old" "${dest}/manjaro/old"
     for pkg in penguins-eggs oa-tools; do
-        mv ${dest}/alpine/x86_64/${pkg}* "${dest}/alpine/x86_64/old" 2>/dev/null
-        mv ${dest}/aur/${pkg}* "${dest}/aur/old" 2>/dev/null
-        mv ${dest}/manjaro/${pkg}* "${dest}/manjaro/old" 2>/dev/null
-        rm -f ${dest}/debs/${pkg}* ${dest}/fedora/${pkg}* ${dest}/opensuse/${pkg}*
+        rm -f ${dest}/alpine/x86_64/${pkg}* ${dest}/aur/${pkg}* \
+              ${dest}/manjaro/${pkg}* ${dest}/debs/${pkg}* \
+              ${dest}/fedora/${pkg}* ${dest}/opensuse/${pkg}*
     done
 }
 
@@ -199,7 +197,7 @@ for target in "$@"; do
                 echo "Esegui una tantum: sudo mkdir -p ${BASKET} && sudo chown -R \$USER ${BASKET%/*}" >&2
                 exit 1
             fi
-            archive_old_basket "${BASKET}"
+            clean_basket "${BASKET}"
             copy_eggs "${BASKET}"
             copy_oa_tools "${BASKET}"
             DID_BASKET=1
