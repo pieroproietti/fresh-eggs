@@ -156,8 +156,10 @@ EOF
     fi
 }
 
-# Carica /eggs su SourceForge. Niente --delete: come con FileZilla,
-# i pacchetti delle release precedenti restano online.
+# Carica /eggs su SourceForge. Con --delete la cartella Packages diventa
+# lo specchio esatto di /eggs: i pacchetti delle release precedenti vengono
+# rimossi. Gli --exclude proteggono dalla cancellazione i contenuti extra
+# di Packages che non vivono in /eggs.
 function upload_sourceforge {
     # Se lo script gira con sudo, l'upload torna all'utente reale:
     # è la sua chiave ssh ad essere registrata su SourceForge, non quella di root.
@@ -166,7 +168,9 @@ function upload_sourceforge {
         runas=(sudo -u "$SUDO_USER")
     fi
     echo "Upload di ${EGGS}/ su SourceForge (${SF_DEST})..."
-    if ! "${runas[@]}" rsync -av -e "ssh -o StrictHostKeyChecking=accept-new" \
+    if ! "${runas[@]}" rsync -av --delete \
+            --exclude=README.md --exclude=tarballs/ \
+            -e "ssh -o StrictHostKeyChecking=accept-new" \
             "${EGGS}/" "${SF_USER}@frs.sourceforge.net:${SF_DEST}/"; then
         echo "ERRORE: upload su SourceForge fallito" >&2
         exit 1

@@ -7,5 +7,9 @@
 SF_USER="pproietti"
 SF_DEST="/home/frs/project/penguins-eggs/Packages"
 
-rsync -avn -e "ssh -o StrictHostKeyChecking=accept-new" \
+# Stesse opzioni di refresh.sh: --delete rimuove da SourceForge i pacchetti
+# delle release precedenti (in dry-run li mostra come "deleting ...")
+rsync -avn --delete \
+    --exclude=README.md --exclude=tarballs/ \
+    -e "ssh -o StrictHostKeyChecking=accept-new" \
     /eggs/ "${SF_USER}@frs.sourceforge.net:${SF_DEST}/"
