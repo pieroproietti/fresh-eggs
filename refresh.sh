@@ -18,13 +18,12 @@ SOURCE="/var/www/html/repos"
 BASKET="/home/artisan/basket/packages"
 EGGS="/eggs"
 
-# Upload su SourceForge: richiede la chiave ssh del server registrata
-# sull'account (sourceforge.net -> Account Settings -> SSH Settings)
-# oppure la password nel file SF_PASSWD_FILE (fuori dal repo, chmod 600;
-# in tal caso serve sshpass installato).
+# Upload su SourceForge: richiede la chiave ssh dell'utente registrata
+# sull'account (sourceforge.net -> Account Settings -> SSH Settings).
+# Lo script va lanciato come utente normale, non con sudo: /eggs deve
+# appartenere all'utente (una tantum: sudo chown $USER /eggs).
 SF_USER="pproietti"
 SF_DEST="/home/frs/project/penguins-eggs/Packages"
-SF_PASSWD_FILE="$(dirname "$0")/../.sf-passwd.txt"
 
 ERRORS=0
 
@@ -160,16 +159,15 @@ EOF
 # Carica /eggs su SourceForge. Niente --delete: come con FileZilla,
 # i pacchetti delle release precedenti restano online.
 function upload_sourceforge {
-    local rsh="ssh -o StrictHostKeyChecking=accept-new"
-    if [ -f "${SF_PASSWD_FILE}" ]; then
-        if ! command -v sshpass >/dev/null 2>&1; then
-            echo "ERRORE: trovato ${SF_PASSWD_FILE} ma sshpass non è installato" >&2
-            exit 1
-        fi
-        rsh="sshpass -f ${SF_PASSWD_FILE} ${rsh}"
+    # Se lo script gira con sudo, l'upload torna all'utente reale:
+    # è la sua chiave ssh ad essere registrata su SourceForge, non quella di root.
+    local runas=()
+    if [ "$EUID" -eq 0 ] && [ -n "$SUDO_USER" ]; then
+        runas=(sudo -u "$SUDO_USER")
     fi
     echo "Upload di ${EGGS}/ su SourceForge (${SF_DEST})..."
-    if ! rsync -av -e "${rsh}" "${EGGS}/" "${SF_USER}@frs.sourceforge.net:${SF_DEST}/"; then
+    if ! "${runas[@]}" rsync -av -e "ssh -o StrictHostKeyChecking=accept-new" \
+            "${EGGS}/" "${SF_USER}@frs.sourceforge.net:${SF_DEST}/"; then
         echo "ERRORE: upload su SourceForge fallito" >&2
         exit 1
     fi
@@ -196,8 +194,14 @@ for target in "$@"; do
             DID_BASKET=1
             ;;
         sourceforge)
-            # :? blocca il comando se EGGS fosse vuota
-            rm -fr "${EGGS:?}"
+            # /eggs viene svuotata, non rimossa: così può appartenere
+            # all'utente e non serve sudo (:? blocca se EGGS fosse vuota)
+            if [ ! -d "${EGGS}" ] || [ ! -w "${EGGS}" ]; then
+                echo "ERRORE: ${EGGS} non esiste o non è scrivibile da $(whoami)." >&2
+                echo "Esegui una tantum: sudo mkdir -p ${EGGS} && sudo chown \$USER ${EGGS}" >&2
+                exit 1
+            fi
+            rm -rf "${EGGS:?}"/*
             copy_eggs "${EGGS}"
             copy_oa_tools "${EGGS}"
             DID_SOURCEFORGE=1
