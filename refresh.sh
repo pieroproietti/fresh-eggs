@@ -7,8 +7,9 @@
 # Uso: ./refresh.sh basket|sourceforge [...]
 #   basket       aggiorna il basket (penguins-eggs.net/basket) con
 #                penguins-eggs + oa-tools e genera LATEST
-#   sourceforge  svuota /eggs e lo ripopola con penguins-eggs + oa-tools,
-#                pronto per il download e l'upload su sourceforge.net
+#   sourceforge  svuota /eggs, lo ripopola con penguins-eggs + oa-tools
+#                e lo carica via rsync/ssh su
+#                sourceforge.net/projects/penguins-eggs (cartella Packages)
 #
 # I target si possono combinare, es: ./refresh.sh basket sourceforge
 # ==============================================================================
@@ -16,6 +17,11 @@
 SOURCE="/var/www/html/repos"
 BASKET="/home/artisan/basket/packages"
 EGGS="/eggs"
+
+# Upload su SourceForge: richiede la chiave ssh del server registrata
+# sull'account (sourceforge.net -> Account Settings -> SSH Settings)
+SF_USER="pproietti"
+SF_DEST="/home/frs/project/penguins-eggs/Packages"
 
 ERRORS=0
 
@@ -148,6 +154,17 @@ EOF
     fi
 }
 
+# Carica /eggs su SourceForge. Niente --delete: come con FileZilla,
+# i pacchetti delle release precedenti restano online.
+function upload_sourceforge {
+    echo "Upload di ${EGGS}/ su SourceForge (${SF_DEST})..."
+    if ! rsync -av -e ssh "${EGGS}/" "${SF_USER}@frs.sourceforge.net:${SF_DEST}/"; then
+        echo "ERRORE: upload su SourceForge fallito" >&2
+        exit 1
+    fi
+    echo "Upload su SourceForge completato."
+}
+
 # ==============================================================================
 # --- Esecuzione ---
 # ==============================================================================
@@ -158,6 +175,7 @@ if [ $# -eq 0 ]; then
 fi
 
 DID_BASKET=0
+DID_SOURCEFORGE=0
 for target in "$@"; do
     case "$target" in
         basket)
@@ -171,6 +189,7 @@ for target in "$@"; do
             rm -fr "${EGGS:?}"
             copy_eggs "${EGGS}"
             copy_oa_tools "${EGGS}"
+            DID_SOURCEFORGE=1
             ;;
         *)
             echo "ERRORE: target sconosciuto: $target (basket|sourceforge)" >&2
@@ -188,6 +207,10 @@ fi
 
 if [ $DID_BASKET -eq 1 ]; then
     make_latest "${BASKET}"
+fi
+
+if [ $DID_SOURCEFORGE -eq 1 ]; then
+    upload_sourceforge
 fi
 
 echo "Refresh completato: $*"
