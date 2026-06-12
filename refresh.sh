@@ -15,13 +15,13 @@
 # ==============================================================================
 
 SOURCE="/var/www/html/repos"
-BASKET="/home/artisan/basket/packages"
+BASKET="/var/www/html/basket/packages"
 EGGS="/eggs"
 
 # Upload su SourceForge: richiede la chiave ssh dell'utente registrata
 # sull'account (sourceforge.net -> Account Settings -> SSH Settings).
-# Lo script va lanciato come utente normale, non con sudo: /eggs deve
-# appartenere all'utente (una tantum: sudo chown $USER /eggs).
+# Lo script va lanciato come utente normale, non con sudo: /eggs e il
+# basket devono appartenere all'utente (una tantum: sudo chown).
 SF_USER="pproietti"
 SF_DEST="/home/frs/project/penguins-eggs/Packages"
 
@@ -192,6 +192,13 @@ DID_SOURCEFORGE=0
 for target in "$@"; do
     case "$target" in
         basket)
+            # Come per /eggs: niente sudo, il basket sotto /var/www deve
+            # appartenere all'utente (i file restano leggibili dal web server)
+            if [ ! -d "${BASKET}" ] || [ ! -w "${BASKET}" ]; then
+                echo "ERRORE: ${BASKET} non esiste o non è scrivibile da $(whoami)." >&2
+                echo "Esegui una tantum: sudo mkdir -p ${BASKET} && sudo chown -R \$USER ${BASKET%/*}" >&2
+                exit 1
+            fi
             archive_old_basket "${BASKET}"
             copy_eggs "${BASKET}"
             copy_oa_tools "${BASKET}"
