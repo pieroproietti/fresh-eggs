@@ -6,10 +6,27 @@
 
 # --- Variabili Globali ---
 SOURCE="/var/www/html/repos"
-DEST="/eggs/"
+DEST="/eggs"
 
-# remove all
-rm -fr $DEST
+ERRORS=0
+
+# Copia in $1 l'ultimo pacchetto (per versione) che corrisponde al glob.
+# Se il glob non trova nulla segnala l'errore e prosegue con le altre distro.
+function copy_last {
+    local dest="$1"
+    shift
+    local last
+    last=$(ls "$@" 2>/dev/null | sort -V | tail -n 1)
+    if [ -z "$last" ]; then
+        echo "ERRORE: nessun pacchetto trovato per: $*" >&2
+        ERRORS=1
+        return 1
+    fi
+    cp "$last" "$dest"
+}
+
+# remove all (:? blocca il comando se DEST fosse vuota)
+rm -fr "${DEST:?}"
 
 # Alpine
 DEST_ALPINE="${DEST}/alpine/x86_64"
@@ -31,50 +48,36 @@ mkdir -p ${DEST_OPENSUSE}
 
 
 # --- Alpine ---
-# Cerca e copia l'ultimo pacchetto base (il [0-9] esclude -doc e -bash-completion)
-LAST_ALPINE_BASE=$(ls ${SOURCE}/alpine/penguins-eggs-[0-9]*.apk | sort -V | tail -n 1)
-cp "${LAST_ALPINE_BASE}" "${DEST_ALPINE}"
-
-# Cerca e copia l'ultimo pacchetto bash-completion
-LAST_ALPINE_BASH=$(ls ${SOURCE}/alpine/penguins-eggs-bash-completion*.apk | sort -V | tail -n 1)
-cp "${LAST_ALPINE_BASH}" "${DEST_ALPINE}"
-
-# Cerca e copia l'ultimo pacchetto doc
-LAST_ALPINE_DOC=$(ls ${SOURCE}/alpine/penguins-eggs-doc*.apk | sort -V | tail -n 1)
-cp "${LAST_ALPINE_DOC}" "${DEST_ALPINE}"
+# il [0-9] esclude -doc e -bash-completion
+copy_last "${DEST_ALPINE}" ${SOURCE}/alpine/penguins-eggs-[0-9]*.apk
+copy_last "${DEST_ALPINE}" ${SOURCE}/alpine/penguins-eggs-bash-completion*.apk
+copy_last "${DEST_ALPINE}" ${SOURCE}/alpine/penguins-eggs-doc*.apk
 
 # --- Arch ---
-LAST_AUR=$(ls ${SOURCE}/arch/penguins-eggs*.pkg.tar.zst | sort -V | tail -n 1)
-cp "${LAST_AUR}" "${DEST_AUR}"
+copy_last "${DEST_AUR}" ${SOURCE}/arch/penguins-eggs*.pkg.tar.zst
 
 # --- Debian ---
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_*amd64.deb | sort -V | tail -n 1)
-cp "${LAST_DEB}" "${DEST_DEBS}"
-
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_*arm64.deb | sort -V | tail -n 1)
-cp "${LAST_DEB}" "${DEST_DEBS}"
-
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_*i386.deb | sort -V | tail -n 1)
-cp "${LAST_DEB}" "${DEST_DEBS}"
-
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/penguins-eggs_*riscv64.deb | sort -V | tail -n 1)
-cp "${LAST_DEB}" "${DEST_DEBS}"
+copy_last "${DEST_DEBS}" ${SOURCE}/deb/pool/main/penguins-eggs_*amd64.deb
+copy_last "${DEST_DEBS}" ${SOURCE}/deb/pool/main/penguins-eggs_*arm64.deb
+copy_last "${DEST_DEBS}" ${SOURCE}/deb/pool/main/penguins-eggs_*i386.deb
+copy_last "${DEST_DEBS}" ${SOURCE}/deb/pool/main/penguins-eggs_*riscv64.deb
 
 # --- EL9 (RHEL/Rocky/Alma) ---
-LAST_EL9=$(ls ${SOURCE}/rpm/el9/penguins-eggs*.rpm | sort -V | tail -n 1)
-cp "${LAST_EL9}" "${DEST_EL9}"
+copy_last "${DEST_EL9}" ${SOURCE}/rpm/el9/penguins-eggs*.rpm
 
 # --- Fedora ---
 # Usa l'ultima release di Fedora presente in ${SOURCE}/rpm/fedora/
-FEDORA_DIR=$(ls -d ${SOURCE}/rpm/fedora/*/ | sort -V | tail -n 1)
-LAST_FEDORA=$(ls ${FEDORA_DIR}penguins-eggs*.rpm | sort -V | tail -n 1)
-cp "${LAST_FEDORA}" "${DEST_FEDORA}"
+FEDORA_DIR=$(ls -d ${SOURCE}/rpm/fedora/*/ 2>/dev/null | sort -V | tail -n 1)
+copy_last "${DEST_FEDORA}" ${FEDORA_DIR}penguins-eggs*.rpm
 
 # --- Manjaro ---
-LAST_MANJARO=$(ls ${SOURCE}/manjaro/penguins-eggs*.pkg.tar.zst | sort -V | tail -n 1)
-cp "${LAST_MANJARO}" "${DEST_MANJARO}"
+copy_last "${DEST_MANJARO}" ${SOURCE}/manjaro/penguins-eggs*.pkg.tar.zst
 
 # --- openSUSE ---
-LAST_OPENSUSE=$(ls ${SOURCE}/rpm/opensuse/leap/penguins-eggs*.rpm | sort -V | tail -n 1)
-cp "${LAST_OPENSUSE}" "${DEST_OPENSUSE}"
+copy_last "${DEST_OPENSUSE}" ${SOURCE}/rpm/opensuse/leap/penguins-eggs*.rpm
 
+if [ $ERRORS -ne 0 ]; then
+    echo "ERRORE: alcuni pacchetti non sono stati copiati in ${DEST}" >&2
+    exit 1
+fi
+echo "Copia in ${DEST} completata."

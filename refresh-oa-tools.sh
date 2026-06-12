@@ -2,14 +2,29 @@
 
 # ==============================================================================
 # Script di copia per oa-tools su /eggs
+# (eseguire DOPO refresh-eggs.sh, che svuota e ricrea /eggs)
 # ==============================================================================
 
 # --- Variabili Globali ---
 SOURCE="/var/www/html/repos"
-DEST="/eggs/"
+DEST="/eggs"
 
-# remove all
-#rm -fr $DEST
+ERRORS=0
+
+# Copia in $1 l'ultimo pacchetto (per versione) che corrisponde al glob.
+# Se il glob non trova nulla segnala l'errore e prosegue con le altre distro.
+function copy_last {
+    local dest="$1"
+    shift
+    local last
+    last=$(ls "$@" 2>/dev/null | sort -V | tail -n 1)
+    if [ -z "$last" ]; then
+        echo "ERRORE: nessun pacchetto trovato per: $*" >&2
+        ERRORS=1
+        return 1
+    fi
+    cp "$last" "$dest"
+}
 
 # Alpine
 DEST_ALPINE="${DEST}/alpine/x86_64"
@@ -31,29 +46,27 @@ mkdir -p ${DEST_OPENSUSE}
 
 
 # --- Alpine ---
-# Cerca e copia l'ultimo pacchetto base (il [0-9] esclude -doc e -bash-completion)
-LAST_ALPINE=$(ls ${SOURCE}/alpine/oa-tools-*.apk | sort -V | tail -n 1)
-cp "${LAST_ALPINE}" "${DEST_ALPINE}"
+copy_last "${DEST_ALPINE}" ${SOURCE}/alpine/oa-tools-*.apk
 
 # --- Arch ---
-LAST_AUR=$(ls ${SOURCE}/arch/oa-tools-arch*.pkg.tar.zst | sort -V | tail -n 1)
-cp "${LAST_AUR}" "${DEST_AUR}"
+copy_last "${DEST_AUR}" ${SOURCE}/arch/oa-tools-arch*.pkg.tar.zst
 
 # --- Debian ---
-LAST_DEB=$(ls ${SOURCE}/deb/pool/main/oa-tools_*.deb | sort -V | tail -n 1)
-cp "${LAST_DEB}" "${DEST_DEBS}"
+copy_last "${DEST_DEBS}" ${SOURCE}/deb/pool/main/oa-tools_*.deb
 
 # --- Fedora ---
 # Usa l'ultima release di Fedora presente in ${SOURCE}/rpm/fedora/
-FEDORA_DIR=$(ls -d ${SOURCE}/rpm/fedora/*/ | sort -V | tail -n 1)
-LAST_FEDORA=$(ls ${FEDORA_DIR}oa-tools*.rpm | sort -V | tail -n 1)
-cp "${LAST_FEDORA}" "${DEST_FEDORA}"
+FEDORA_DIR=$(ls -d ${SOURCE}/rpm/fedora/*/ 2>/dev/null | sort -V | tail -n 1)
+copy_last "${DEST_FEDORA}" ${FEDORA_DIR}oa-tools*.rpm
 
 # --- Manjaro ---
-LAST_MANJARO=$(ls ${SOURCE}/manjaro/oa-tools-manjaro*.pkg.tar.zst | sort -V | tail -n 1)
-cp "${LAST_MANJARO}" "${DEST_MANJARO}"
+copy_last "${DEST_MANJARO}" ${SOURCE}/manjaro/oa-tools-manjaro*.pkg.tar.zst
 
 # --- openSUSE ---
-LAST_OPENSUSE=$(ls ${SOURCE}/rpm/opensuse/leap/oa-tools*.rpm | sort -V | tail -n 1)
-cp "${LAST_OPENSUSE}" "${DEST_OPENSUSE}"
+copy_last "${DEST_OPENSUSE}" ${SOURCE}/rpm/opensuse/leap/oa-tools*.rpm
 
+if [ $ERRORS -ne 0 ]; then
+    echo "ERRORE: alcuni pacchetti non sono stati copiati in ${DEST}" >&2
+    exit 1
+fi
+echo "Copia in ${DEST} completata."
