@@ -11,7 +11,7 @@
 # Valori di fallback, usati solo se il file LATEST remoto non è raggiungibile.
 # La versione corrente viene letta da ${URL_BASE}/LATEST, generato da
 # refresh-basket.sh ad ogni pubblicazione.
-LAST_VERSION="26.6.2"
+LAST_VERSION="26.6.20"
 LAST_RELEASE="1"
 FEDORA_TAG="fc42"
 URL_BASE="https://penguins-eggs.net/basket/packages"
