@@ -6,8 +6,8 @@
 #
 # Uso: ./refresh.sh basket|sourceforge [...]
 #   basket       aggiorna il basket (penguins-eggs.net/basket) con
-#                penguins-eggs + oa-tools e genera LATEST
-#   sourceforge  svuota /eggs, lo ripopola con penguins-eggs + oa-tools
+#                penguins-eggs-legacy + penguins-eggs e genera LATEST
+#   sourceforge  svuota /eggs, lo ripopola con penguins-eggs-legacy + penguins-eggs
 #                e lo carica via rsync/ssh su
 #                sourceforge.net/projects/penguins-eggs (cartella Packages)
 #
@@ -97,21 +97,21 @@ function copy_eggs {
     copy_last "${dest}/opensuse" ${SOURCE}/rpm/opensuse/leap/penguins-eggs-legacy*.rpm
 }
 
-# Copia gli ultimi pacchetti oa-tools sotto $1
-function copy_oa_tools {
+# Copia gli ultimi pacchetti penguins-eggs sotto $1
+function copy_penguins_eggs {
     local dest="$1"
     make_dirs "${dest}"
 
-    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/oa-tools-*.apk
-    copy_last "${dest}/aur" ${SOURCE}/arch/oa-tools-arch*.pkg.tar.zst
-    copy_last "${dest}/debs" ${SOURCE}/deb/pool/main/oa-tools_*.deb
+    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/penguins-eggs-*.apk
+    copy_last "${dest}/aur" ${SOURCE}/arch/penguins-eggs-arch*.pkg.tar.zst
+    copy_last "${dest}/debs" ${SOURCE}/deb/pool/main/penguins-eggs_*.deb
 
     local fedora_dir
     fedora_dir=$(ls -d ${SOURCE}/rpm/fedora/*/ 2>/dev/null | sort -V | tail -n 1)
-    copy_last "${dest}/fedora" ${fedora_dir}oa-tools*.rpm
+    copy_last "${dest}/fedora" ${fedora_dir}penguins-eggs*.rpm
 
-    copy_last "${dest}/manjaro" ${SOURCE}/manjaro/oa-tools-manjaro*.pkg.tar.zst
-    copy_last "${dest}/opensuse" ${SOURCE}/rpm/opensuse/leap/oa-tools*.rpm
+    copy_last "${dest}/manjaro" ${SOURCE}/manjaro/penguins-eggs-manjaro*.pkg.tar.zst
+    copy_last "${dest}/opensuse" ${SOURCE}/rpm/opensuse/leap/penguins-eggs*.rpm
 }
 
 # Rimuove dal basket i pacchetti del giro precedente prima di copiare
@@ -119,7 +119,7 @@ function copy_oa_tools {
 # disponibili nelle release su GitHub: niente più archivio in old/.
 function clean_basket {
     local dest="$1" pkg
-    for pkg in penguins-eggs-legacy oa-tools; do
+    for pkg in penguins-eggs-legacy penguins-eggs; do
         rm -f ${dest}/alpine/x86_64/${pkg}* ${dest}/aur/${pkg}* \
               ${dest}/manjaro/${pkg}* ${dest}/debs/${pkg}* \
               ${dest}/fedora/${pkg}* ${dest}/opensuse/${pkg}*
@@ -199,7 +199,7 @@ for target in "$@"; do
             fi
             clean_basket "${BASKET}"
             copy_eggs "${BASKET}"
-            copy_oa_tools "${BASKET}"
+            copy_penguins_eggs "${BASKET}"
             DID_BASKET=1
             ;;
         sourceforge)
@@ -212,7 +212,7 @@ for target in "$@"; do
             fi
             rm -rf "${EGGS:?}"/*
             copy_eggs "${EGGS}"
-            copy_oa_tools "${EGGS}"
+            copy_penguins_eggs "${EGGS}"
             DID_SOURCEFORGE=1
             ;;
         *)
