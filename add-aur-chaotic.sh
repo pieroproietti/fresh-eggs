@@ -29,9 +29,9 @@ function main {
     echo "Include = /etc/pacman.d/chaotic-mirrorlist" >> /etc/pacman.conf
 
     echo ""
-    echo ">> fresh-eggs: Installing penguins-eggs..."
+    echo ">> fresh-eggs: Installing penguins-eggs-legacy..."
     echo ""
-    pacman -Sy penguins-eggs
+    pacman -Sy penguins-eggs-legacy
 
     echo ""
     read -rp ">> fresh-eggs: press a key to edit /etc/sudoers"

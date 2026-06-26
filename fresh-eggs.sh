@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==============================================================================
-# Script di installazione per penguins-eggs
+# Script di installazione per penguins-eggs-legacy
 # - Rileva la distribuzione
 # - Definisce i pacchetti da scaricare e i comandi da eseguire
 # - Esegue il download e l'installazione in un unico flusso
@@ -38,7 +38,7 @@ function fetch_latest_version {
         if [[ "$remote_fctag" =~ ^fc[0-9]+$ ]]; then
             FEDORA_TAG="$remote_fctag"
         fi
-        echo "penguins-eggs version: ${LAST_VERSION}-${LAST_RELEASE}"
+        echo "penguins-eggs-legacy version: ${LAST_VERSION}-${LAST_RELEASE}"
     else
         echo ">> Warning: could not read ${URL_BASE}/LATEST, using fallback version ${LAST_VERSION}-${LAST_RELEASE}"
     fi
@@ -47,7 +47,7 @@ function fetch_latest_version {
 function title {
     clear
     echo "====================================="
-    echo "UNIVERSAL INSTALLER FOR penguins-eggs" 
+    echo "UNIVERSAL INSTALLER FOR penguins-eggs-legacy" 
     echo "====================================="
     echo ""
 }

@@ -56,18 +56,18 @@ function copy_eggs {
 
     # --- Alpine ---
     # il [0-9] esclude -doc e -bash-completion
-    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/penguins-eggs-[0-9]*.apk
-    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/penguins-eggs-bash-completion*.apk
-    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/penguins-eggs-doc*.apk
+    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/penguins-eggs-legacy-[0-9]*.apk
+    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/penguins-eggs-legacy-bash-completion*.apk
+    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/penguins-eggs-legacy-doc*.apk
 
     # --- Arch ---
-    copy_last "${dest}/aur" ${SOURCE}/arch/penguins-eggs*.pkg.tar.zst
+    copy_last "${dest}/aur" ${SOURCE}/arch/penguins-eggs-legacy*.pkg.tar.zst
 
     # --- Debian ---
-    copy_last "${dest}/debs" ${SOURCE}/deb/pool/main/penguins-eggs_*amd64.deb
-    copy_last "${dest}/debs" ${SOURCE}/deb/pool/main/penguins-eggs_*arm64.deb
-    copy_last "${dest}/debs" ${SOURCE}/deb/pool/main/penguins-eggs_*i386.deb
-    copy_last "${dest}/debs" ${SOURCE}/deb/pool/main/penguins-eggs_*riscv64.deb
+    copy_last "${dest}/debs" ${SOURCE}/deb/pool/main/penguins-eggs-legacy_*amd64.deb
+    copy_last "${dest}/debs" ${SOURCE}/deb/pool/main/penguins-eggs-legacy_*arm64.deb
+    copy_last "${dest}/debs" ${SOURCE}/deb/pool/main/penguins-eggs-legacy_*i386.deb
+    copy_last "${dest}/debs" ${SOURCE}/deb/pool/main/penguins-eggs-legacy_*riscv64.deb
 
     # --- EL (RHEL/Rocky/Alma: el9, el10, ...) ---
     # Copia ogni release EL presente in ${SOURCE}/rpm/
@@ -80,21 +80,21 @@ function copy_eggs {
         fi
         el_name=$(basename "$el_dir")
         mkdir -p "${dest}/${el_name}"
-        rm -f ${dest}/${el_name}/penguins-eggs*
-        copy_last "${dest}/${el_name}" ${el_dir}penguins-eggs*.rpm
+        rm -f ${dest}/${el_name}/penguins-eggs-legacy*
+        copy_last "${dest}/${el_name}" ${el_dir}penguins-eggs-legacy*.rpm
     done
 
     # --- Fedora ---
     # Usa l'ultima release di Fedora presente in ${SOURCE}/rpm/fedora/
     local fedora_dir
     fedora_dir=$(ls -d ${SOURCE}/rpm/fedora/*/ 2>/dev/null | sort -V | tail -n 1)
-    copy_last "${dest}/fedora" ${fedora_dir}penguins-eggs*.rpm
+    copy_last "${dest}/fedora" ${fedora_dir}penguins-eggs-legacy*.rpm
 
     # --- Manjaro ---
-    copy_last "${dest}/manjaro" ${SOURCE}/manjaro/penguins-eggs*.pkg.tar.zst
+    copy_last "${dest}/manjaro" ${SOURCE}/manjaro/penguins-eggs-legacy*.pkg.tar.zst
 
     # --- openSUSE ---
-    copy_last "${dest}/opensuse" ${SOURCE}/rpm/opensuse/leap/penguins-eggs*.rpm
+    copy_last "${dest}/opensuse" ${SOURCE}/rpm/opensuse/leap/penguins-eggs-legacy*.rpm
 }
 
 # Copia gli ultimi pacchetti oa-tools sotto $1
@@ -119,7 +119,7 @@ function copy_oa_tools {
 # disponibili nelle release su GitHub: niente più archivio in old/.
 function clean_basket {
     local dest="$1" pkg
-    for pkg in penguins-eggs oa-tools; do
+    for pkg in penguins-eggs-legacy oa-tools; do
         rm -f ${dest}/alpine/x86_64/${pkg}* ${dest}/aur/${pkg}* \
               ${dest}/manjaro/${pkg}* ${dest}/debs/${pkg}* \
               ${dest}/fedora/${pkg}* ${dest}/opensuse/${pkg}*
@@ -132,14 +132,14 @@ function clean_basket {
 function make_latest {
     local dest="$1"
     local pkg ver_rel last_version last_release fedora_tag
-    pkg=$(basename "$(ls ${dest}/debs/penguins-eggs_*amd64.deb 2>/dev/null | sort -V | tail -n 1)")
-    ver_rel="${pkg#penguins-eggs_}"
+    pkg=$(basename "$(ls ${dest}/debs/penguins-eggs-legacy_*amd64.deb 2>/dev/null | sort -V | tail -n 1)")
+    ver_rel="${pkg#penguins-eggs-legacy_}"
     ver_rel="${ver_rel%%_*}"
     last_version="${ver_rel%-*}"
     last_release="${ver_rel##*-}"
 
     # Tag fedora (fc42, fc43, ...) dal nome dell'rpm appena copiato nel basket
-    fedora_tag=$(ls ${dest}/fedora/penguins-eggs*.rpm 2>/dev/null | sort -V | tail -n 1 | grep -o 'fc[0-9]*')
+    fedora_tag=$(ls ${dest}/fedora/penguins-eggs-legacy*.rpm 2>/dev/null | sort -V | tail -n 1 | grep -o 'fc[0-9]*')
 
     if [ -n "$last_version" ] && [ -n "$last_release" ]; then
         cat > "${dest}/LATEST" <<EOF

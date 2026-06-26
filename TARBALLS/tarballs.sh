@@ -25,7 +25,7 @@ DOWNLOAD_PAGE="https://sourceforge.net/projects/penguins-eggs/files/Packages/tar
 
 clear
 if [[ $FOUND == 1 ]]; then
-    echo ">> fresh-eggs: OK, is $ID, penguins-eggs can be installed"
+    echo ">> fresh-eggs: OK, is $ID, penguins-eggs-legacy can be installed"
     echo ""
     echo "First: if SELINUX is enbled, disable it, and reboot;"
     echo ""
@@ -35,12 +35,12 @@ if [[ $FOUND == 1 ]]; then
     echo "Install requirements:"
     echo "sudo tarballs/requirements/$ID/install.sh"
     echo ""
-    echo "Download penguins-eggs_$VERSION-linux-x64.tar.gz from "
+    echo "Download penguins-eggs-legacy_$VERSION-linux-x64.tar.gz from "
     echo ""
-    echo "Install penguins-eggs:"
-    echo "tarballs/setup ~/Downloads/penguins-eggs_$VERSION-linux-x64.tar.gz from $DOWNLOAD_PAGE"
+    echo "Install penguins-eggs-legacy:"
+    echo "tarballs/setup ~/Downloads/penguins-eggs-legacy_$VERSION-linux-x64.tar.gz from $DOWNLOAD_PAGE"
     echo ""
     echo "enjoy it!"
 else
-    echo ">> fresh-eggs: is $ID, penguins-eggs install the package"
+    echo ">> fresh-eggs: is $ID, penguins-eggs-legacy install the package"
 fi
