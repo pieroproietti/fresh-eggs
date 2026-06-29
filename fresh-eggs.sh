@@ -10,8 +10,8 @@
 # --- Variabili Globali ---
 # Valori di fallback, usati solo se il file LATEST remoto non è raggiungibile.
 # La versione corrente viene letta da ${URL_BASE}/LATEST, generato ad ogni pubblicazione.
-LAST_VERSION="26.6.20"
-LAST_RELEASE="1"
+#LAST_VERSION="26.6.20"
+#LAST_RELEASE="1"
 FEDORA_TAG="fc42"
 
 # Aggiornato al nuovo percorso diretto
@@ -19,31 +19,6 @@ URL_BASE="https://penguins-eggs.net/repos"
 
 source ./ensure-node.sh
 source ./prepare_pkgs.sh
-
-function fetch_latest_version {
-    local latest=""
-    if command -v curl >/dev/null 2>&1; then
-        latest=$(curl --fail -sL "${URL_BASE}/LATEST" 2>/dev/null)
-    elif command -v wget >/dev/null 2>&1; then
-        latest=$(wget -qO- "${URL_BASE}/LATEST" 2>/dev/null)
-    fi
-
-    local remote_version remote_release remote_fctag
-    remote_version=$(echo "$latest" | sed -n 's/^LAST_VERSION=//p')
-    remote_release=$(echo "$latest" | sed -n 's/^LAST_RELEASE=//p')
-    remote_fctag=$(echo "$latest" | sed -n 's/^FEDORA_TAG=//p')
-
-    if [[ "$remote_version" =~ ^[0-9]+(\.[0-9]+)*$ ]] && [[ "$remote_release" =~ ^[0-9]+$ ]]; then
-        LAST_VERSION="$remote_version"
-        LAST_RELEASE="$remote_release"
-        if [[ "$remote_fctag" =~ ^fc[0-9]+$ ]]; then
-            FEDORA_TAG="$remote_fctag"
-        fi
-        echo "penguins-eggs-legacy version: ${LAST_VERSION}-${LAST_RELEASE}"
-    else
-        echo ">> Warning: could not read ${URL_BASE}/LATEST, using fallback version ${LAST_VERSION}-${LAST_RELEASE}"
-    fi
-}
 
 function title {
     clear
@@ -76,8 +51,8 @@ else
 fi
 
 echo "Distro detected: $PRETTY_NAME"
-fetch_latest_version
-echo ""
+# fetch_latest_version
+# echo ""
 
 FOLDER=""
 PACKAGES=()      # Array per i pacchetti da scaricare
