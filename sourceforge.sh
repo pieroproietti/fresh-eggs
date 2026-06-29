@@ -5,15 +5,14 @@ SF_USER="pproietti"
 SF_HOST="frs.sourceforge.net"
 SF_BASE_DIR="/home/frs/project/penguins-eggs/Packages"
 
-# I path ORA puntano esattamente dove sono i pacchetti fisici
 declare -A REPOS
 REPOS["/var/www/html/repos/alpine/x86_64/"]="alpine/"
 REPOS["/var/www/html/repos/arch/"]="aur/"
-REPOS["/var/www/html/repos/deb/pool/main/"]="debs/"      # <-- Aggiornato
+REPOS["/var/www/html/repos/deb/pool/main/"]="debs/"
 REPOS["/var/www/html/repos/manjaro/"]="manjaro/"
 REPOS["/var/www/html/repos/rpm/el9/x86_64/"]="el9/"
 REPOS["/var/www/html/repos/rpm/fedora/42/x86_64/"]="fedora/"
-REPOS["/var/www/html/repos/rpm/opensuse/leap/x86_64/"]="opensuse/" # <-- Aggiunto
+REPOS["/var/www/html/repos/rpm/opensuse/leap/x86_64/"]="opensuse/"
 
 # --- CONNESSIONE MASTER SSH ---
 SOCKET="/tmp/sf_ssh_socket_$$"
@@ -35,11 +34,12 @@ upload_latest_version() {
     local is_legacy=$3
     local dest_path="${SF_USER}@${SF_HOST}:${SF_BASE_DIR}/${dest_subdir}"
 
-    # Trova il file più recente (distinguendo tra legacy e standard)
+    # Trova il file più recente: 
+    # Usiamo [-_] per catturare sia il trattino (Arch/RPM/Alpine) sia l'underscore (Debian)
     if [ "$is_legacy" = true ]; then
         local latest_file=$(ls -t "${src_dir}"penguins-eggs-legacy* 2>/dev/null | head -n 1)
     else
-        local latest_file=$(ls -t "${src_dir}"penguins-eggs-* 2>/dev/null | grep -v "legacy" | head -n 1)
+        local latest_file=$(ls -t "${src_dir}"penguins-eggs[-_]* 2>/dev/null | grep -v "legacy" | head -n 1)
     fi
 
     if [ -z "$latest_file" ]; then
@@ -47,7 +47,6 @@ upload_latest_version() {
     fi
 
     # Estrae la versione dal nome del file (es: 0.9.2-1, 0.9.2-r1, 26.6.27-1)
-    # Usa sed per prendere tutto quello che sta tra "eggs_" (o simile) e l'architettura
     local version=$(basename "$latest_file" | sed -E 's/.*penguins-eggs(-legacy)?_?-?([0-9]+\.[0-9]+\.[0-9]+-[a-zA-Z0-9]+).*/\2/')
     
     echo "📌 Trovata versione $version in $src_dir"
