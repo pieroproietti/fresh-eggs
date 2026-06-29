@@ -88,7 +88,7 @@ function copy_eggs {
     # Usa l'ultima release di Fedora presente in ${SOURCE}/rpm/fedora/
     local fedora_dir
     fedora_dir=$(ls -d ${SOURCE}/rpm/fedora/*/x86_64 2>/dev/null | sort -V | tail -n 1)
-    copy_last "${dest}/fedora" ${fedora_dir}penguins-eggs-legacy*.rpm
+    copy_last "${dest}/fedora" ${fedora_dir}/x86_64/penguins-eggs-legacy*.rpm
 
     # --- Manjaro ---
     copy_last "${dest}/manjaro" ${SOURCE}/manjaro/penguins-eggs-legacy*.pkg.tar.zst
