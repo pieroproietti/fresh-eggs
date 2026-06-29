@@ -5,9 +5,9 @@ function not_supported {
         exit 1
 }
 
-
 function prepare_aur {
-    FOLDER="aur"
+    # Allineato al percorso reale della repo
+    FOLDER="arch"
     PACKAGES=("penguins-eggs-legacy-${LAST_VERSION}-${LAST_RELEASE}-any.pkg.tar.zst")
     INSTALL_CMDS=("pacman -U --noconfirm /tmp/${PACKAGES[0]}")
 }
@@ -23,27 +23,28 @@ function prepare_alpine {
 }
 
 function prepare_debs {
-    FOLDER="debs"
+    # Allineato al percorso reale della repo
+    FOLDER="deb/pool/main"
     ARCHITECTURE=$(dpkg --print-architecture)
     PACKAGES=("penguins-eggs-legacy_${LAST_VERSION}-${LAST_RELEASE}_${ARCHITECTURE}.deb")
-    # in debian -y va dopo!
+    # In debian -y va dopo!
     INSTALL_CMDS=(
         "apt-get install /tmp/${PACKAGES[0]} -y"
     )
 }
 
 function prepare_fedora_or_el {
-    # La famiglia RHEL (rhel, almalinux, rocky, centos...) usa i pacchetti
-    # elN in base alla major version (el9, el10, ...); Fedora e derivate
-    # (es. nobara, con ID_LIKE=fedora ma senza rhel) usano il pacchetto
-    # fedora corrente.
     if [[ "$ID" == "rhel" || "$ID_LIKE" == *rhel* ]]; then
         EL_MAJOR="${VERSION_ID%%.*}"
-        FOLDER="el${EL_MAJOR}"
+        # Allineato al nuovo albero RPM
+        FOLDER="rpm/el${EL_MAJOR}/x86_64"
         PACKAGES=("penguins-eggs-legacy-${LAST_VERSION}-${LAST_RELEASE}.el${EL_MAJOR}.x86_64.rpm")
         INSTALL_CMDS=("dnf install -y /tmp/${PACKAGES[0]}")
     else
-        FOLDER="fedora"
+        # Estraiamo il numero puro (es. 42) per il percorso della cartella
+        FEDORA_VER="${FEDORA_TAG#fc}"
+        # Allineato al nuovo albero RPM
+        FOLDER="rpm/fedora/${FEDORA_VER}/x86_64"
         PACKAGES=("penguins-eggs-legacy-${LAST_VERSION}-${LAST_RELEASE}.${FEDORA_TAG}.x86_64.rpm")
         INSTALL_CMDS=("dnf install -y /tmp/${PACKAGES[0]}")
     fi
@@ -61,9 +62,10 @@ function prepare_openmamba {
     INSTALL_CMDS=("dnf install  /tmp/${PACKAGES[0]}")
 }
 
-
 function prepare_opensuse {
-    FOLDER="opensuse"
-    PACKAGES=("penguins-eggs-legacy-${LAST_VERSION}-${LAST_RELEASE}.opensuse.x86_64.rpm")
+    # Allineato al nuovo albero RPM
+    FOLDER="rpm/opensuse/leap/x86_64"
+    # Corretto il nome del pacchetto (rimosso .opensuse. che non è presente nel file reale)
+    PACKAGES=("penguins-eggs-legacy-${LAST_VERSION}-${LAST_RELEASE}.x86_64.rpm")
     INSTALL_CMDS=("zypper --non-interactive install --allow-unsigned-rpm /tmp/${PACKAGES[0]}")
 }

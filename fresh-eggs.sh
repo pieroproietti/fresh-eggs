@@ -9,12 +9,13 @@
 
 # --- Variabili Globali ---
 # Valori di fallback, usati solo se il file LATEST remoto non è raggiungibile.
-# La versione corrente viene letta da ${URL_BASE}/LATEST, generato da
-# refresh-basket.sh ad ogni pubblicazione.
+# La versione corrente viene letta da ${URL_BASE}/LATEST, generato ad ogni pubblicazione.
 LAST_VERSION="26.6.20"
 LAST_RELEASE="1"
 FEDORA_TAG="fc42"
-URL_BASE="https://penguins-eggs.net/basket/packages"
+
+# Aggiornato al nuovo percorso diretto
+URL_BASE="https://penguins-eggs.net/repos"
 
 source ./ensure-node.sh
 source ./prepare_pkgs.sh
@@ -59,7 +60,6 @@ function press_a_key_to_continue {
     title
 }
 
-
 # --- Controllo utente Root ---
 title
 if [[ "$EUID" -ne 0 ]]; then
@@ -102,7 +102,7 @@ case "$ID" in
         prepare_aur
         ;;
 
-    debian | devuan| ubuntu)
+    debian | devuan | ubuntu)
         ensure_node
         title
         echo "Distro detected: $PRETTY_NAME"
@@ -159,7 +159,6 @@ if [ ${#PACKAGES[@]} -eq 0 ]; then
     exit 1
 fi
 
-
 # ==============================================================================
 # --- Esecuzione ---
 # ==============================================================================
@@ -174,7 +173,7 @@ press_a_key_to_continue
 for pkg in "${PACKAGES[@]}"; do
     echo ">> Downloading ${pkg}..."
     local_file="/tmp/${pkg}"
-    rm -f $local_file
+    rm -f "$local_file"
     remote_url="${URL_BASE}/${FOLDER}/${pkg}"
 
     if command -v curl >/dev/null 2>&1; then
