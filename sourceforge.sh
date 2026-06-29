@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # --- CONFIGURAZIONE ---
-SF_USER="TUO_USERNAME_QUI"
+SF_USER="pproietti"
 SF_HOST="frs.sourceforge.net"
 SF_BASE_DIR="/home/frs/project/penguins-eggs/Packages"
 
