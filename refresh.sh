@@ -56,9 +56,9 @@ function copy_eggs {
 
     # --- Alpine ---
     # il [0-9] esclude -doc e -bash-completion
-    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/penguins-eggs-legacy-[0-9]*.apk
-    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/penguins-eggs-legacy-bash-completion*.apk
-    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/penguins-eggs-legacy-doc*.apk
+    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/x86_64/penguins-eggs-legacy-[0-9]*.apk
+    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/x86_64/penguins-eggs-legacy-bash-completion*.apk
+    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/x86_64/penguins-eggs-legacy-doc*.apk
 
     # --- Arch ---
     copy_last "${dest}/aur" ${SOURCE}/arch/penguins-eggs-legacy*.pkg.tar.zst
@@ -72,7 +72,7 @@ function copy_eggs {
     # --- EL (RHEL/Rocky/Alma: el9, el10, ...) ---
     # Copia ogni release EL presente in ${SOURCE}/rpm/
     local el_dir el_name
-    for el_dir in ${SOURCE}/rpm/el[0-9]*/; do
+    for el_dir in ${SOURCE}/rpm/el[0-9]*/x86_64/; do
         if [ ! -d "$el_dir" ]; then
             echo "ERRORE: nessuna directory el* in ${SOURCE}/rpm/" >&2
             ERRORS=1
@@ -87,7 +87,7 @@ function copy_eggs {
     # --- Fedora ---
     # Usa l'ultima release di Fedora presente in ${SOURCE}/rpm/fedora/
     local fedora_dir
-    fedora_dir=$(ls -d ${SOURCE}/rpm/fedora/*/ 2>/dev/null | sort -V | tail -n 1)
+    fedora_dir=$(ls -d ${SOURCE}/rpm/fedora/*/x86_64 2>/dev/null | sort -V | tail -n 1)
     copy_last "${dest}/fedora" ${fedora_dir}penguins-eggs-legacy*.rpm
 
     # --- Manjaro ---
