@@ -56,9 +56,9 @@ function copy_eggs {
 
     # --- Alpine ---
     # il [0-9] esclude -doc e -bash-completion
-    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/x86_64/penguins-eggs-legacy-[0-9]*.apk
-    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/x86_64/penguins-eggs-legacy-bash-completion*.apk
-    copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/x86_64/penguins-eggs-legacy-doc*.apk
+    #copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/x86_64/penguins-eggs-legacy-[0-9]*.apk
+    #copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/x86_64/penguins-eggs-legacy-bash-completion*.apk
+    #copy_last "${dest}/alpine/x86_64" ${SOURCE}/alpine/x86_64/penguins-eggs-legacy-doc*.apk
 
     # --- Arch ---
     copy_last "${dest}/aur" ${SOURCE}/arch/penguins-eggs-legacy*.pkg.tar.zst
