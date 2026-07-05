@@ -1,188 +1,174 @@
 #!/bin/bash
 
 # ==============================================================================
-# Script di installazione per penguins-eggs-legacy
-# - Rileva la distribuzione
-# - Definisce i pacchetti da scaricare e i comandi da eseguire
-# - Esegue il download e l'installazione in un unico flusso
+# UNIVERSAL INSTALLER FOR PENGUINS-EGGS (Standard Version)
+# - Scarica direttamente da https://penguins-eggs.net/basket/packages/
+# - Rileva automaticamente Distro e Architettura
+# - Individua l'ultima release parsando la directory web (salta le legacy)
 # ==============================================================================
 
-# --- Variabili Globali ---
-# Valori di fallback, usati solo se il file LATEST remoto non è raggiungibile.
-# La versione corrente viene letta da ${URL_BASE}/LATEST, generato ad ogni pubblicazione.
-#LAST_VERSION="26.6.20"
-#LAST_RELEASE="1"
-FEDORA_TAG="fc42"
-
-# Aggiornato al nuovo percorso diretto
-URL_BASE="https://penguins-eggs.net/repos"
-
-source ./ensure-node.sh
-source ./prepare_pkgs.sh
+URL_BASE="https://penguins-eggs.net/basket/packages"
 
 function title {
     clear
-    echo "====================================="
-    echo "UNIVERSAL INSTALLER FOR penguins-eggs-legacy" 
-    echo "====================================="
+    echo "=========================================================="
+    echo " UNIVERSAL INSTALLER FOR PENGUINS-EGGS"
+    echo "=========================================================="
     echo ""
 }
 
-function press_a_key_to_continue {
-    echo ""
-    echo ""
-    read -rp ">> Press enter to continue or CTRL-C to abort."
-    title
-}
-
-# --- Controllo utente Root ---
-title
+# --- Controllo root ---
 if [[ "$EUID" -ne 0 ]]; then
-    echo ">> This script must be run as root. Please use sudo or log in as root and try again." >&2
+    echo "❌ Errore: Questo script deve essere eseguito come root (usa sudo)." >&2
     exit 1
 fi
 
-# --- Logica di Rilevamento Distribuzione ---
+# --- Dipendenze essenziali ---
+if ! command -v curl >/dev/null 2>&1; then
+    echo "❌ Errore: 'curl' è necessario per esplorare la repository. Installalo e riprova." >&2
+    exit 1
+fi
+
+# --- Rilevamento Architettura ---
+ARCH=$(uname -m)
+case $ARCH in
+    x86_64)  DEB_ARCH="amd64" ;;
+    aarch64) DEB_ARCH="arm64" ;;
+    riscv64) DEB_ARCH="riscv64" ;;
+    i386|i686) DEB_ARCH="i386" ;;
+    *)       DEB_ARCH="$ARCH" ;;
+esac
+
+# --- Rilevamento Distribuzione ---
 if [ -f /etc/os-release ]; then
     source /etc/os-release
 else
-    echo "Error: /etc/os-release not found. Cannot determine the distribution." >&2
+    echo "❌ Errore: /etc/os-release non trovato. Impossibile determinare la distribuzione." >&2
     exit 1
 fi
 
-echo "Distro detected: $PRETTY_NAME"
-# fetch_latest_version
-# echo ""
+title
+echo "Distro rilevata: $PRETTY_NAME"
+echo "Architettura: $ARCH (Debian-style: $DEB_ARCH)"
+echo ""
 
 FOLDER=""
-PACKAGES=()      # Array per i pacchetti da scaricare
-INSTALL_CMDS=()  # Array per i comandi da eseguire in sequenza
+INSTALL_CMD=""
+PATTERN=""
+
+# Mappatura della distribuzione verso la cartella sul server e il comando di installazione
+# Il pattern cerca esplicitamente un numero dopo "penguins-eggs-" o "penguins-eggs_",
+# escludendo così in modo naturale i pacchetti "penguins-eggs-legacy".
 
 case "$ID" in
-    # NOT SUPPORTED
-    garuda)
-        not_supported
+    debian | devuan | ubuntu | linuxmint | pop)
+        FOLDER="debs"
+        PATTERN="penguins-eggs_[0-9][a-zA-Z0-9.-]*_${DEB_ARCH}\.deb"
+        INSTALL_CMD="apt-get install -y"
         ;;
-
-    # SUPPORTED
-    alpine)
-        prepare_alpine
-        ;;
-
-    arch)
-        prepare_aur
-        ;;
-
-    cachyos)
-        prepare_aur
-        ;;
-
-    debian | devuan | ubuntu)
-        ensure_node
-        title
-        echo "Distro detected: $PRETTY_NAME"
-        echo ""
-        prepare_debs
-        ;;
-
     fedora)
-        prepare_fedora_or_el
+        FOLDER="fedora"
+        PATTERN="penguins-eggs-[0-9][a-zA-Z0-9.-]*\.rpm"
+        INSTALL_CMD="dnf install -y"
         ;;
-
-    manjaro | biglinux)
-        prepare_manjaro
+    almalinux | rocky | centos | rhel)
+        FOLDER="el9"
+        PATTERN="penguins-eggs-[0-9][a-zA-Z0-9.-]*\.rpm"
+        INSTALL_CMD="dnf install -y"
         ;;
-
-    openmamba)
-        prepare_openmamba
-        ;;
-
     sles | opensuse-tumbleweed | opensuse-slowroll | opensuse-leap)
-        prepare_opensuse
+        FOLDER="opensuse"
+        PATTERN="penguins-eggs-[0-9][a-zA-Z0-9.-]*\.rpm"
+        INSTALL_CMD="zypper install -y --allow-unsigned-rpm"
         ;;
-    
+    arch | cachyos | endeavouros)
+        FOLDER="aur"
+        PATTERN="penguins-eggs-[0-9][a-zA-Z0-9.-]*\.pkg\.tar\.zst"
+        INSTALL_CMD="pacman -U --noconfirm"
+        ;;
+    manjaro | biglinux)
+        FOLDER="manjaro"
+        PATTERN="penguins-eggs-[0-9][a-zA-Z0-9.-]*\.pkg\.tar\.zst"
+        INSTALL_CMD="pacman -U --noconfirm"
+        ;;
+    alpine)
+        FOLDER="alpine"
+        PATTERN="penguins-eggs-[0-9][a-zA-Z0-9.-]*\.apk"
+        INSTALL_CMD="apk add --allow-untrusted"
+        ;;
     *)
-        # Logica di fallback per i derivati basata su ID_LIKE
+        # Fallback tramite ID_LIKE
         case "$ID_LIKE" in
-            *arch*)
-                prepare_aur
-                ;;
-
             *debian*)
-                ensure_node
-                title
-                echo "Distro detected: $PRETTY_NAME"
-                echo ""
-                prepare_debs
+                FOLDER="debs"
+                PATTERN="penguins-eggs_[0-9][a-zA-Z0-9.-]*_${DEB_ARCH}\.deb"
+                INSTALL_CMD="apt-get install -y"
                 ;;
-
-            *fedora*)
-                prepare_fedora_or_el
+            *fedora*|*rhel*|*centos*)
+                FOLDER="el9" # Default prudenziale
+                PATTERN="penguins-eggs-[0-9][a-zA-Z0-9.-]*\.rpm"
+                INSTALL_CMD="dnf install -y"
                 ;;
-            # Aggiungere altri fallback se necessario
+            *arch*)
+                FOLDER="aur"
+                PATTERN="penguins-eggs-[0-9][a-zA-Z0-9.-]*\.pkg\.tar\.zst"
+                INSTALL_CMD="pacman -U --noconfirm"
+                ;;
             *)
-                echo "Your distribution ($PRETTY_NAME) is not currently supported." >&2
+                echo "❌ Distribuzione non supportata: $PRETTY_NAME" >&2
                 exit 1
                 ;;
         esac
         ;;
 esac
 
-# Controlla se sono stati trovati pacchetti/comandi
-if [ ${#PACKAGES[@]} -eq 0 ]; then
-    echo "Configuration for your distribution ($PRETTY_NAME) could not be determined." >&2
+# ==============================================================================
+# --- Ricerca e Download ---
+# ==============================================================================
+
+FETCH_URL="${URL_BASE}/${FOLDER}/"
+echo "🔍 Cerco l'ultima versione in: $FETCH_URL"
+
+# Legge la pagina web, estrae i link corrispondenti al pattern, 
+# li ordina per versione (sort -V) e prende l'ultimo (tail -n 1)
+LATEST_PKG=$(curl -sL "$FETCH_URL" | grep -oE "$PATTERN" | sort -u | sort -V | tail -n 1)
+
+if [ -z "$LATEST_PKG" ]; then
+    echo "❌ Errore: Nessun pacchetto compatibile trovato per $PRETTY_NAME ($ARCH)."
     exit 1
 fi
 
-# ==============================================================================
-# --- Esecuzione ---
-# ==============================================================================
+DOWNLOAD_URL="${FETCH_URL}${LATEST_PKG}"
+LOCAL_FILE="/tmp/${LATEST_PKG}"
 
-# 1. Download dei Pacchetti
-echo "From ${URL_BASE}/${FOLDER}/ will download:"
-for pkg in "${PACKAGES[@]}"; do
-    echo "  - ${pkg}"
-done
-press_a_key_to_continue
+echo "✅ Trovato: $LATEST_PKG"
+echo "⬇️  Download in corso..."
 
-for pkg in "${PACKAGES[@]}"; do
-    echo ">> Downloading ${pkg}..."
-    local_file="/tmp/${pkg}"
-    rm -f "$local_file"
-    remote_url="${URL_BASE}/${FOLDER}/${pkg}"
+curl --fail -L -o "$LOCAL_FILE" "$DOWNLOAD_URL"
 
-    if command -v curl >/dev/null 2>&1; then
-        curl --fail -L -o "$local_file" "$remote_url"
-    elif command -v wget >/dev/null 2>&1; then
-        wget -q -O "$local_file" "$remote_url"
-    else
-        echo "Error: Neither curl nor wget is available to download files." >&2
-        exit 1
-    fi
-    
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to download ${pkg}." >&2
-        exit 1
-    fi
-done
+if [ $? -ne 0 ]; then
+    echo "❌ Errore durante il download del file." >&2
+    exit 1
+fi
 
-echo "All packages downloaded successfully."
+echo "✅ Download completato: $LOCAL_FILE"
 echo ""
 
-# 2. Esecuzione dei Comandi di Installazione
-echo "The following commands will be executed for installation:"
-for cmd in "${INSTALL_CMDS[@]}"; do
-    echo "  - ${cmd}"
-done
-press_a_key_to_continue
+# ==============================================================================
+# --- Installazione ---
+# ==============================================================================
 
-for cmd in "${INSTALL_CMDS[@]}"; do
-    echo ">> Running: $cmd"
-    if ! eval "$cmd"; then
-        echo "Error: Command failed to execute successfully: '$cmd'" >&2
-        echo "Aborting installation." >&2
-        exit 1
-    fi
-done
+FULL_CMD="$INSTALL_CMD $LOCAL_FILE"
 
-echo "Installation completed successfully!"
+echo "🚀 Eseguo l'installazione: $FULL_CMD"
+echo "----------------------------------------------------------"
+
+if ! eval "$FULL_CMD"; then
+    echo "----------------------------------------------------------"
+    echo "❌ Errore: L'installazione è fallita." >&2
+    exit 1
+fi
+
+echo "----------------------------------------------------------"
+echo "🎉 Installazione di penguins-eggs completata con successo!"
+rm -f "$LOCAL_FILE"
