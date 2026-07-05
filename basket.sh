@@ -1,0 +1,97 @@
+#!/bin/bash
+
+# --- CONFIGURAZIONE ---
+DEST_BASE_DIR="/home/artisan/basket/packages"
+
+declare -A REPOS
+REPOS["/var/www/html/repos/alpine/x86_64/"]="alpine"
+REPOS["/var/www/html/repos/arch/"]="aur"
+REPOS["/var/www/html/repos/deb/pool/main/"]="debs"
+REPOS["/var/www/html/repos/manjaro/"]="manjaro"
+REPOS["/var/www/html/repos/rpm/el9/x86_64/"]="el9"
+REPOS["/var/www/html/repos/rpm/fedora/42/x86_64/"]="fedora"
+REPOS["/var/www/html/repos/rpm/opensuse/leap/x86_64/"]="opensuse"
+
+# Creiamo l'area di staging temporanea
+STAGE_BASE="/tmp/local_stage_$$"
+mkdir -p "$STAGE_BASE"
+
+# Assicuriamoci che la directory di destinazione finale esista
+mkdir -p "$DEST_BASE_DIR"
+
+# --- FUNZIONE DI RICERCA (IL "CERCATORE") ---
+# Trova esattamente l'ultimo file che rispetta il pattern e lo copia nello Stage
+stage_latest() {
+    local src_dir=$1
+    local stage_dir=$2
+    local pattern=$3
+
+    # Troviamo l'ultimo file (head -n 1 prende il più recente)
+    local latest=$(ls -t "${src_dir}"/${pattern} 2>/dev/null | head -n 1)
+    
+    if [ -n "$latest" ] && [ -f "$latest" ]; then
+        cp -a "$latest" "$stage_dir/"
+        echo "    ✅ Selezionato: $(basename "$latest")"
+    fi
+}
+
+# --- INIZIO CICLO REPOSITORY ---
+for SRC_DIR in "${!REPOS[@]}"; do
+    DEST_SUBDIR="${REPOS[$SRC_DIR]}"
+    
+    if [ ! -d "$SRC_DIR" ]; then
+        echo "⚠️  Saltata: $SRC_DIR (non esiste localmente)"
+        continue
+    fi
+
+    echo "---------------------------------------------------"
+    echo "Analizzo sorgente: $SRC_DIR"
+    
+    # Prepariamo la cartella vuota (lo specchio perfetto)
+    STAGE_DIR="${STAGE_BASE}/${DEST_SUBDIR}"
+    mkdir -p "$STAGE_DIR"
+
+    # Definiamo le regole di selezione (chirurgiche!)
+    if [ "$DEST_SUBDIR" = "debs" ]; then
+        # Debian: Vogliamo 1 standard e 1 legacy per OGNI architettura
+        for arch in amd64 arm64 riscv64 i386; do
+            stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs_[0-9]*_${arch}.deb"
+            stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-legacy_[0-9]*_${arch}.deb"
+        done
+        
+    elif [[ "$DEST_SUBDIR" == "fedora" || "$DEST_SUBDIR" == "el9" || "$DEST_SUBDIR" == "opensuse" ]]; then
+        # RPM
+        stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-[0-9]*.rpm"
+        stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-legacy-[0-9]*.rpm"
+        
+    elif [[ "$DEST_SUBDIR" == "aur" || "$DEST_SUBDIR" == "manjaro" ]]; then
+        # Arch / Manjaro
+        stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-[0-9]*.pkg.tar.zst"
+        stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-legacy-[0-9]*.pkg.tar.zst"
+        
+    elif [ "$DEST_SUBDIR" = "alpine" ]; then
+        # Alpine
+        stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-[0-9]*.apk"
+        stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-legacy-[0-9]*.apk"
+    fi
+
+    # Controllo di sicurezza: se la cartella stage è vuota, non sincronizziamo
+    if [ -z "$(ls -A "$STAGE_DIR")" ]; then
+        echo "⚠️  Nessun pacchetto trovato da caricare per $DEST_SUBDIR. Salto la sincronizzazione."
+        continue
+    fi
+
+    # Prepariamo la sottocartella di destinazione finale se non esiste
+    mkdir -p "${DEST_BASE_DIR}/${DEST_SUBDIR}"
+
+    # --- LA MAGIA: RSYNC --DELETE ---
+    echo "🚀 Sincronizzo in locale (copio i nuovi, cancello il passato)..."
+    rsync -avP --delete "${STAGE_DIR}/" "${DEST_BASE_DIR}/${DEST_SUBDIR}/"
+
+done
+
+echo "---------------------------------------------------"
+echo "🧹 Pulizia area di staging temporanea..."
+rm -rf "$STAGE_BASE"
+
+echo "✅ Specchio locale allineato perfettamente in ${DEST_BASE_DIR}."
