@@ -27,46 +27,71 @@ if [ $? -ne 0 ]; then
 fi
 echo "✅ Connessione stabilita."
 
-# Funzione per trovare la versione e caricare i file
+# --- FUNZIONE LOGICA DI UPLOAD ---
+# Accetta un quarto parametro opzionale per filtrare l'architettura (es. amd64, riscv64, arm64)
 upload_latest_version() {
     local src_dir=$1
     local dest_subdir=$2
     local is_legacy=$3
+    local arch_filter=$4
     local dest_path="${SF_USER}@${SF_HOST}:${SF_BASE_DIR}/${dest_subdir}"
 
-    # Trova il file più recente ([-_] per coprire sia Debian che gli altri)
+    local latest_file=""
+
+    # 1. Ricerca dell'ultimo file specifico per tipo ed eventuale architettura
     if [ "$is_legacy" = true ]; then
-        local latest_file=$(ls -t "${src_dir}"penguins-eggs-legacy* 2>/dev/null | head -n 1)
+        if [ -n "$arch_filter" ]; then
+            latest_file=$(ls -t "${src_dir}"penguins-eggs-legacy*_*${arch_filter}* 2>/dev/null | head -n 1)
+        else
+            latest_file=$(ls -t "${src_dir}"penguins-eggs-legacy* 2>/dev/null | head -n 1)
+        fi
     else
-        local latest_file=$(ls -t "${src_dir}"penguins-eggs[-_]* 2>/dev/null | grep -v "legacy" | head -n 1)
+        if [ -n "$arch_filter" ]; then
+            latest_file=$(ls -t "${src_dir}"penguins-eggs[-_]*_*${arch_filter}* 2>/dev/null | grep -v "legacy" | head -n 1)
+        else
+            latest_file=$(ls -t "${src_dir}"penguins-eggs[-_]* 2>/dev/null | grep -v "legacy" | head -n 1)
+        fi
     fi
 
     if [ -z "$latest_file" ]; then
         return
     fi
 
-    # Estrae la versione dal nome del file
+    # 2. Estrazione della versione dal file identificato
     local version=$(basename "$latest_file" | sed -E 's/.*penguins-eggs(-legacy)?_?-?([0-9]+\.[0-9]+\.[0-9]+-[a-zA-Z0-9]+).*/\2/')
     
-    echo "📌 Trovata versione $version in $src_dir"
-
-    # Prepara la lista dei file, escludendo esplicitamente i .sha256
-    if [ "$is_legacy" = true ]; then
-        local files_to_upload=$(ls "${src_dir}"*legacy*"${version}"* 2>/dev/null | grep -v "\.sha256$")
+    if [ -n "$arch_filter" ]; then
+        echo "📌 [${arch_filter}] Trovata ultima versione: $version"
     else
-        local files_to_upload=$(ls "${src_dir}"*"${version}"* 2>/dev/null | grep -v "legacy" | grep -v "\.sha256$")
+        echo "📌 Trovata ultima versione: $version"
     fi
 
-    # Esegue l'upload dei pacchetti puliti
+    # 3. Raccolta dei file corrispondenti alla versione (escludendo gli sha256)
+    local files_to_upload=""
+    if [ "$is_legacy" = true ]; then
+        if [ -n "$arch_filter" ]; then
+            files_to_upload=$(ls "${src_dir}"*legacy*"${version}"*_${arch_filter}* 2>/dev/null | grep -v "\.sha256$")
+        else
+            files_to_upload=$(ls "${src_dir}"*legacy*"${version}"* 2>/dev/null | grep -v "\.sha256$")
+        fi
+    else
+        if [ -n "$arch_filter" ]; then
+            files_to_upload=$(ls "${src_dir}"*"${version}"*_${arch_filter}* 2>/dev/null | grep -v "legacy" | grep -v "\.sha256$")
+        else
+            files_to_upload=$(ls "${src_dir}"*"${version}"* 2>/dev/null | grep -v "legacy" | grep -v "\.sha256$")
+        fi
+    fi
+
+    # 4. Spedizione su SourceForge via rsync sfruttando il socket aperto
     for f in $files_to_upload; do
         if [ -f "$f" ]; then
-            echo "   🚀 Upload: $(basename "$f") -> $dest_subdir"
+            echo "    🚀 Upload: $(basename "$f") -> $dest_subdir"
             rsync -avP -e "ssh -S $SOCKET" "$f" "$dest_path"
         fi
     done
 }
 
-# --- INIZIO CICLO ---
+# --- INIZIO CICLO REPOSITORY ---
 for SRC_DIR in "${!REPOS[@]}"; do
     DEST_SUBDIR="${REPOS[$SRC_DIR]}"
     
@@ -76,20 +101,33 @@ for SRC_DIR in "${!REPOS[@]}"; do
     fi
 
     echo "---------------------------------------------------"
-    echo "Analizzo: $SRC_DIR"
+    echo "Analizzo sorgente: $SRC_DIR"
 
-    # 1. Pulisce la directory di destinazione su SourceForge prima di caricare la nuova roba
-    echo "🧹 Rimozione versioni precedenti in $DEST_SUBDIR su SourceForge..."
+    # A. TABULA RASA: Rimuove TOTALMENTE il contenuto precedente nella cartella remota di SourceForge
+    echo "🧹 Rimozione totale versioni precedenti in $DEST_SUBDIR su SourceForge..."
     ssh -S "$SOCKET" "${SF_USER}@${SF_HOST}" "rm -f '${SF_BASE_DIR}/${DEST_SUBDIR}'* 2>/dev/null"
 
-    # 2. Carica la Standard (solo .deb/.rpm/.pkg.tar.zst/.apk)
-    upload_latest_version "$SRC_DIR" "$DEST_SUBDIR" false
-    
-    # 3. Carica la Legacy
-    upload_latest_version "$SRC_DIR" "$DEST_SUBDIR" true
+    # B. APPLICAZIONE DELLA LOGICA DI CARICAMENTO
+    if [ "$DEST_SUBDIR" = "debs/" ]; then
+        echo "📦 Rilevata directory Debian Multi-Arch. Scompongo le architetture..."
+        
+        # Gestione Standard per Debian (amd64 e la neonata riscv64, inclusa arm64)
+        for arch in amd64 riscv64 arm64; do
+            upload_latest_version "$SRC_DIR" "$DEST_SUBDIR" false "$arch"
+        done
+        
+        # Gestione Legacy per Debian (amd64 e arm64)
+        for arch in amd64 arm64; do
+            upload_latest_version "$SRC_DIR" "$DEST_SUBDIR" true "$arch"
+        done
+    else
+        # Logica standard lineare per tutti gli altri repository single-arch
+        upload_latest_version "$SRC_DIR" "$DEST_SUBDIR" false
+        upload_latest_version "$SRC_DIR" "$DEST_SUBDIR" true
+    fi
 done
 
 echo "---------------------------------------------------"
 echo "Chiudo la connessione master..."
 ssh -S "$SOCKET" -O exit "${SF_USER}@${SF_HOST}" 2>/dev/null
-echo "✅ Script completato."
+echo "✅ Script completato con successo."
