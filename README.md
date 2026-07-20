@@ -14,7 +14,7 @@ Thanks you!
 ## Native repositories
 * on Almalinux, Arch, Debian, Devuan, Fedora, ManjaroopenSuse, RockyLinux and Ubuntu - after you installed penguins-eggs - you can add [pengins-eggs-repo](https://github.com/pieroproietti/penguins-eggs-repo) to get fresh penguins-eggs packages. Just use: `sudo eggs tools ppa --add`. 
 
-* On Arch Linux penguins-eggs is on [Chaotic-AUR](https://aur.chaotic.cx/) too. Tis is the actual [PKGBUILD](https://aur.archlinux.org/packages/penguins-eggs).
+* On Arch Linux, the previous AUR package has been removed. Please use the universal native repository at [penguins-eggs repository](https://penguins-eggs.net/basket/repository/).
 
 * On Debian/Devuan/Ubuntu and derivatives - you can use [penguins-eggs-ppa](https://github.com/pieroproietti/penguins-eggs-ppa) to get fresh penguins-eggs packages. Read the [README](https://github.com/pieroproietti/penguins-eggs-ppa/blob/master/README.md) for more info.
 
