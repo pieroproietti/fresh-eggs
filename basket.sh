@@ -53,26 +53,30 @@ for SRC_DIR in "${!REPOS[@]}"; do
 
     # Definiamo le regole di selezione (chirurgiche!)
     if [ "$DEST_SUBDIR" = "debs" ]; then
-        # Debian: Vogliamo 1 standard e 1 legacy per OGNI architettura
+        # Debian: Vogliamo standard, legacy e penguins-gui per OGNI architettura
         for arch in amd64 arm64 riscv64 i386; do
             stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs_[0-9]*_${arch}.deb"
             stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-legacy_[0-9]*_${arch}.deb"
+            stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-gui_[0-9]*_${arch}.deb"
         done
         
     elif [[ "$DEST_SUBDIR" == "fedora" || "$DEST_SUBDIR" == "el9" || "$DEST_SUBDIR" == "opensuse" ]]; then
         # RPM
         stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-[0-9]*.rpm"
         stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-legacy-[0-9]*.rpm"
+        stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-gui-[0-9]*.rpm"
         
     elif [[ "$DEST_SUBDIR" == "aur" || "$DEST_SUBDIR" == "manjaro" ]]; then
         # Arch / Manjaro
         stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-[0-9]*.pkg.tar.zst"
         stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-legacy-[0-9]*.pkg.tar.zst"
+        stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-gui-[0-9]*.pkg.tar.zst"
         
     elif [ "$DEST_SUBDIR" = "alpine" ]; then
         # Alpine
         stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-[0-9]*.apk"
         stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs-legacy-[0-9]*.apk"
+        stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-gui-[0-9]*.apk"
     fi
 
     # Controllo di sicurezza: se la cartella stage è vuota, non sincronizziamo
