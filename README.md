@@ -33,6 +33,14 @@ Thanks you!
 
 And follow instructions.
 
+`basket.sh` and `sourceforge.sh` synchronize the latest local packages and
+download the AppImages from the latest stable GitHub release of
+`pieroproietti/penguins-gui` into `packages/appimage` (basket) and
+`Packages/appimage` (SourceForge). This requires `curl` and `python3`, in addition
+to `rsync` and SSH for SourceForge. Keep `stage-gui-appimage.sh` alongside both
+scripts. If the AppImage download fails or the release has no matching asset,
+the scripts stop before synchronizing destinations.
+
 # [SUPPORTED DISTROS](./SUPPORTED-DISTROS.md)
 
 # Fork it!

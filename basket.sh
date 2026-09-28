@@ -1,5 +1,8 @@
 #!/bin/bash
 
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/stage-gui-appimage.sh" || exit 1
+
 # --- CONFIGURAZIONE ---
 DEST_BASE_DIR="/home/artisan/basket/packages"
 
@@ -14,7 +17,15 @@ REPOS["/var/www/html/repos/rpm/opensuse/leap/x86_64/"]="opensuse"
 
 # Creiamo l'area di staging temporanea
 STAGE_BASE="/tmp/local_stage_$$"
-mkdir -p "$STAGE_BASE"
+mkdir -p "$STAGE_BASE" || exit 1
+trap 'rm -rf "$STAGE_BASE"' EXIT
+
+# Completiamo il download prima di modificare le destinazioni.
+if ! stage_gui_appimage "${STAGE_BASE}/appimage"; then
+    echo "❌ Download AppImage di penguins-gui fallito. Esco senza sincronizzare." >&2
+    exit 1
+fi
+REPOS["${STAGE_BASE}/appimage"]="appimage"
 
 # Assicuriamoci che la directory di destinazione finale esista
 mkdir -p "$DEST_BASE_DIR"
@@ -52,7 +63,10 @@ for SRC_DIR in "${!REPOS[@]}"; do
     mkdir -p "$STAGE_DIR"
 
     # Definiamo le regole di selezione (chirurgiche!)
-    if [ "$DEST_SUBDIR" = "debs" ]; then
+    if [ "$DEST_SUBDIR" = "appimage" ]; then
+        # Le AppImage sono già state scaricate nello stage, per ogni architettura.
+        :
+    elif [ "$DEST_SUBDIR" = "debs" ]; then
         # Debian: Vogliamo standard, legacy e penguins-gui per OGNI architettura
         for arch in amd64 arm64 riscv64 i386; do
             stage_latest "$SRC_DIR" "$STAGE_DIR" "penguins-eggs_[0-9]*_${arch}.deb"
