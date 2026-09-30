@@ -103,7 +103,11 @@ AppImage without launching it.
 
 You can also invoke `install.sh` directly in each component directory.
 
-# Just for me - Package publishing
+
+# Supported Distros
+A [supported distros](./SUPPORTED-DISTROS.md)
+
+# Just for the author: package publishing
 
 `publish/basket.sh` and `publish/sourceforge.sh` synchronize the latest local packages and
 download the AppImages from the latest stable GitHub release of
