@@ -19,6 +19,7 @@ cd fresh-eggs
 ./fresh-eggs.sh
 ```
 
+
 Without arguments, the script displays usage and exits without downloading or
 installing anything. Run it as a normal user; `--cli` and `--legacy` request
 sudo authorization when needed.
@@ -63,7 +64,7 @@ the system package manager. No Go compiler or Node.js runtime is required.
 For subsequent package updates, configure the native repository with:
 
 ```bash
-sudo eggs tools ppa --add
+sudo eggs tools repo add
 ```
 
 ## Legacy version
@@ -71,6 +72,13 @@ sudo eggs tools ppa --add
 `./fresh-eggs.sh --legacy` selects the separate installer for the old
 Node.js implementation, `penguins-eggs-legacy`. Only that installer uses
 `penguins-eggs-legacy/ensure-node.sh` and `penguins-eggs-legacy/prepare_pkgs.sh`, including the Node.js 22 setup.
+
+For subsequent package updates, configure the native repository with:
+
+```bash
+sudo eggs tools repo --add
+```
+
 
 # Repository layout
 
