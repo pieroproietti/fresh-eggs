@@ -17,8 +17,9 @@ FEDORA_TAG="fc42"
 # Aggiornato al nuovo percorso diretto
 URL_BASE="https://penguins-eggs.net/repos"
 
-source ./ensure-node.sh
-source ./prepare_pkgs.sh
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+source "${SCRIPT_DIR}/ensure-node.sh" || exit 1
+source "${SCRIPT_DIR}/prepare_pkgs.sh" || exit 1
 
 function title {
     clear

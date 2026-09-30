@@ -16,7 +16,12 @@ NodeSource are not needed for the current version.
 ```bash
 git clone https://github.com/pieroproietti/fresh-eggs
 cd fresh-eggs
+./fresh-eggs.sh
 ```
+
+Without arguments, the script displays usage and exits without downloading or
+installing anything. Run it as a normal user; `--cli` and `--legacy` request
+sudo authorization when needed.
 
 ## Desktop: penguins-gui AppImage
 
@@ -47,7 +52,7 @@ APPIMAGE_EXTRACT_AND_RUN=1 ./penguins-gui.AppImage
 ## Terminal: install Penguins' Eggs directly
 
 ```bash
-sudo ./fresh-eggs.sh
+./fresh-eggs.sh --cli
 ```
 
 This path requires `curl`, detects the distribution and architecture, downloads
@@ -63,18 +68,43 @@ sudo eggs tools ppa --add
 
 ## Legacy version
 
-`sudo ./fresh-eggs-legacy.sh` is the separate installer for the old
+`./fresh-eggs.sh --legacy` selects the separate installer for the old
 Node.js implementation, `penguins-eggs-legacy`. Only that installer uses
-`ensure-node.sh` and `prepare_pkgs.sh`, including the Node.js 22 setup.
+`penguins-eggs-legacy/ensure-node.sh` and `penguins-eggs-legacy/prepare_pkgs.sh`, including the Node.js 22 setup.
+
+# Repository layout
+
+```text
+fresh-eggs.sh                  # dispatcher: --gui, --cli, --legacy
+penguins-gui/                  # AppImage installer and download helper
+penguins-eggs/                 # Go CLI installer
+penguins-eggs-legacy/          # legacy installer and Node.js helpers
+publish/                      # basket.sh and sourceforge.sh
+```
+
+Each component documents its dependencies in its own README. Installers resolve
+helpers relative to their script location, so they can be called from any directory.
+Without arguments, the command only displays usage; `--gui` downloads the
+AppImage without launching it.
+
+```bash
+./fresh-eggs.sh --gui
+./fresh-eggs.sh --cli
+./fresh-eggs.sh --legacy
+```
+
+You can also invoke `install.sh` directly in each component directory.
+`penguins-eggs-legacy/fresh-eggs-legacy.sh` is an additional legacy entry point
+and requires root privileges when invoked directly.
 
 # Package publishing
 
-`basket.sh` and `sourceforge.sh` synchronize the latest local packages and
+`publish/basket.sh` and `publish/sourceforge.sh` synchronize the latest local packages and
 download the AppImages from the latest stable GitHub release of
 `pieroproietti/penguins-gui` into `packages/appimage` (basket) and
 `Packages/appimage` (SourceForge). This requires `curl` and `python3`, in addition
-to `rsync` and SSH for SourceForge. Keep `stage-gui-appimage.sh` alongside both
-scripts. If the AppImage download fails or the release has no matching asset,
+to `rsync` and SSH for SourceForge. Both scripts use `penguins-gui/stage-gui-appimage.sh`; keep the repository
+layout intact. If the AppImage download fails or the release has no matching asset,
 the scripts stop before synchronizing destinations.
 
 # [SUPPORTED DISTROS](./SUPPORTED-DISTROS.md)

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-source "${SCRIPT_DIR}/stage-gui-appimage.sh" || exit 1
+source "${SCRIPT_DIR}/../penguins-gui/stage-gui-appimage.sh" || exit 1
 
 # --- CONFIGURAZIONE ---
 DEST_BASE_DIR="/home/artisan/basket/packages"
