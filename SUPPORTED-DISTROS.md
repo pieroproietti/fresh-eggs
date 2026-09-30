@@ -122,10 +122,10 @@ The order reflect Page Hit Ranking at 2025 luly, 28:
 
 # DOWNLOADS
 All materials is under my googledrive [penguins-eggs](https://drive.google.com/drive/folders/19fwjvsZiW0Dspu2Iq-fQN0J-PDbKBlYY), You can visit and browse.
-
-### [ISOS](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
-### [SUPPORTED-ISOS](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
-### [PACKAGES](https://drive.google.com/drive/folders/1ojkzoWIFKDxtcor9z5NaqZlrVOYwFoVu)
+### [google drive packages](https://drive.google.com/drive/folders/1ojkzoWIFKDxtcor9z5NaqZlrVOYwFoVu)
+### [google drive isos](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
+### [sourceforge packages](https://sourceforge.net/projects/penguins-eggs/files/Packages/)
+### [sourceforge isos](https://sourceforge.net/projects/penguins-eggs/files/Isos/)
 
 ![](./fresh-eggs.png)
 # DONATE
