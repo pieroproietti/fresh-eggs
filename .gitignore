@@ -1,2 +1,5 @@
 # la password SourceForge non deve mai finire nel repo
 .sf-passwd.txt
+
+# AppImage downloaded by fresh-eggs.sh --gui
+/penguins-gui.AppImage
