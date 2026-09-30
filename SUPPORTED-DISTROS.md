@@ -4,6 +4,9 @@
 
 # SUPPORTED DISTROS
 
+These are historical remastering notes from 2025. For the distributions handled
+by the current installer, see the cases in [penguins-eggs/install.sh](./penguins-eggs/install.sh).
+
 I just take the list from [distrowatch](https://distrowatch.com/), to get an idea where we are.
 
 Most of the information comes from direct experience, even from some time ago, and there may be errors. For example, some time ago Garuda could be remastered by removing the garuda-dracut package, but now it cannot.

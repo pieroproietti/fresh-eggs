@@ -94,8 +94,6 @@ AppImage without launching it.
 ```
 
 You can also invoke `install.sh` directly in each component directory.
-`penguins-eggs-legacy/fresh-eggs-legacy.sh` is an additional legacy entry point
-and requires root privileges when invoked directly.
 
 # Package publishing
 

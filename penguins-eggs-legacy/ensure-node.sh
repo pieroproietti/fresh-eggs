@@ -76,15 +76,7 @@ function ensure_node() {
     if [[ "$version" =~ ^[0-9]+$ ]] && [ "$version" -ge "$NODE_MAJOR_VERSION" ]; then
       echo "Package nodejs $version is available..."
       sleep 2
-      # Ensure it is installed if available? The original script just returned 0 if available in policy?
-      # The original script assumed if available in policy it might be enough or handled elsewhere? 
-      # Actually the original script was 'ensure', usually implies installing. 
-      # Looking at original: it returns 0 if available. It seemed to rely on a later install step or it being there.
-      # To be safe and consistent with 'ensure', we should probably just continue to the repo add if NOT available.
-      # If it IS available in apt policy efficiently, we assume `apt install nodejs` will happen or is happened.
-      # BUT, let's keep the original logic's spirit: "if available, good". 
-      # WAIT, the original script returned 0 if available in `apt-cache policy`. It didn't explicitly install it there?
-      # Ah, line 23 check. If available, return 0.
+      # The package manager installs Node.js as a dependency of the legacy package.
       return 0
     fi
   done
@@ -94,11 +86,6 @@ function ensure_node() {
   sleep 2
   wait_for_apt
   curl -fsSL "https://deb.nodesource.com/setup_$NODE_MAJOR_VERSION.x" | bash -
-  
-  # Install after adding repo? The original script didn't explicitly install in the `ensure_node` function shown.
-  # It setup the repo. Presumably the caller does `apt install nodejs`. 
-  # However, for the riscv64 part I added explicit manual install because there is no repo to add.
-  # For consistency, I will leave the nodesource part as just adding the repo (as per original).
   
   # free the LOCK before to end
   wait_for_apt

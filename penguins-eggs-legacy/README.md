@@ -11,4 +11,3 @@ setup on Debian-family systems, including the existing riscv64 fallback.
 Other distributions rely on native package dependency resolution.
 
 `prepare_pkgs.sh` contains distro-specific package selection.
-`add-aur-chaotic.sh` is the existing optional Arch/Chaotic-AUR helper.

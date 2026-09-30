@@ -8,10 +8,6 @@
 # ==============================================================================
 
 # --- Variabili Globali ---
-# Valori di fallback, usati solo se il file LATEST remoto non è raggiungibile.
-# La versione corrente viene letta da ${URL_BASE}/LATEST, generato ad ogni pubblicazione.
-#LAST_VERSION="26.6.20"
-#LAST_RELEASE="1"
 FEDORA_TAG="fc42"
 
 # Aggiornato al nuovo percorso diretto
@@ -52,8 +48,6 @@ else
 fi
 
 echo "Distro detected: $PRETTY_NAME"
-# fetch_latest_version
-# echo ""
 
 FOLDER=""
 PACKAGES=()      # Array per i pacchetti da scaricare
