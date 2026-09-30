@@ -107,7 +107,7 @@ You can also invoke `install.sh` directly in each component directory.
 # DOWNLOADS
 All materials is under my googledrive [penguins-eggs](https://drive.google.com/drive/folders/19fwjvsZiW0Dspu2Iq-fQN0J-PDbKBlYY), You can visit and browse.
 ### [SUPPORTED-ISOS](https://drive.google.com/drive/folders/1E6MtIt6-GfgoMyqFoDNsg2j64liVi2JZ)
-### [google drive packages](https://drive.google.com/drive/folders/1ojkzoWIFKDxtcor9z5NaqZlrVOYwFoVu)
+### [penguins-eggs.net packages](https://penguins-eggs.net/basket/packages/)
 ### [google drive isos](https://drive.google.com/drive/folders/1Wc07Csh8kJvqENj3oL-VDBU3E6eA9CLU)
 ### [sourceforge packages](https://sourceforge.net/projects/penguins-eggs/files/Packages/)
 ### [sourceforge isos](https://sourceforge.net/projects/penguins-eggs/files/Isos/)
