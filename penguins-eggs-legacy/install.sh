@@ -1,16 +1,16 @@
 #!/bin/bash
 
 # ==============================================================================
-# Script di installazione per penguins-eggs-legacy
-# - Rileva la distribuzione
-# - Definisce i pacchetti da scaricare e i comandi da eseguire
-# - Esegue il download e l'installazione in un unico flusso
+# Installation script for penguins-eggs-legacy
+# - Detect the distribution
+# - Define the packages to download and the commands to run
+# - Download and install packages in a single workflow
 # ==============================================================================
 
-# --- Variabili Globali ---
+# --- Global variables ---
 FEDORA_TAG="fc42"
 
-# Aggiornato al nuovo percorso diretto
+# Updated to the new direct path
 URL_BASE="https://penguins-eggs.net/repos"
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
@@ -32,14 +32,14 @@ function press_a_key_to_continue {
     title
 }
 
-# --- Controllo utente Root ---
+# --- Root user check ---
 title
 if [[ "$EUID" -ne 0 ]]; then
     echo ">> This script must be run as root. Please use sudo or log in as root and try again." >&2
     exit 1
 fi
 
-# --- Logica di Rilevamento Distribuzione ---
+# --- Distribution detection logic ---
 if [ -f /etc/os-release ]; then
     source /etc/os-release
 else
@@ -50,8 +50,8 @@ fi
 echo "Distro detected: $PRETTY_NAME"
 
 FOLDER=""
-PACKAGES=()      # Array per i pacchetti da scaricare
-INSTALL_CMDS=()  # Array per i comandi da eseguire in sequenza
+PACKAGES=()      # Array of packages to download
+INSTALL_CMDS=()  # Array of commands to run sequentially
 
 case "$ID" in
     # NOT SUPPORTED
@@ -97,7 +97,7 @@ case "$ID" in
         ;;
     
     *)
-        # Logica di fallback per i derivati basata su ID_LIKE
+        # Fallback logic for derivatives based on ID_LIKE
         case "$ID_LIKE" in
             *arch*)
                 prepare_aur
@@ -114,7 +114,7 @@ case "$ID" in
             *fedora*)
                 prepare_fedora_or_el
                 ;;
-            # Aggiungere altri fallback se necessario
+            # Add other fallbacks if needed
             *)
                 echo "Your distribution ($PRETTY_NAME) is not currently supported." >&2
                 exit 1
@@ -123,17 +123,17 @@ case "$ID" in
         ;;
 esac
 
-# Controlla se sono stati trovati pacchetti/comandi
+# Check whether packages/commands were found
 if [ ${#PACKAGES[@]} -eq 0 ]; then
     echo "Configuration for your distribution ($PRETTY_NAME) could not be determined." >&2
     exit 1
 fi
 
 # ==============================================================================
-# --- Esecuzione ---
+# --- Execution ---
 # ==============================================================================
 
-# 1. Download dei Pacchetti
+# 1. Download packages
 echo "From ${URL_BASE}/${FOLDER}/ will download:"
 for pkg in "${PACKAGES[@]}"; do
     echo "  - ${pkg}"
@@ -164,7 +164,7 @@ done
 echo "All packages downloaded successfully."
 echo ""
 
-# 2. Esecuzione dei Comandi di Installazione
+# 2. Run installation commands
 echo "The following commands will be executed for installation:"
 for cmd in "${INSTALL_CMDS[@]}"; do
     echo "  - ${cmd}"

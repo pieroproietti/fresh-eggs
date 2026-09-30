@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# Funzione condivisa da basket.sh e sourceforge.sh.
-# Scarica le AppImage dall'ultima release stabile, filtrando opzionalmente
-# per architettura (senza filtro, i publisher scaricano tutti gli asset).
+# Shared function used by basket.sh and sourceforge.sh.
+# Download AppImages from the latest stable release, optionally filtering
+# by architecture (without a filter, publishers download all assets).
 stage_gui_appimage() {
     local stage_dir=$1
     local architecture=${2:-}
@@ -28,12 +28,12 @@ architecture = sys.argv[2]
 if architecture:
     assets = [a for a in assets if a["name"].endswith("-" + architecture + ".AppImage")]
 if not assets:
-    sys.exit("Nessuna AppImage di penguins-gui nell'ultima release" +
-             (" per " + architecture if architecture else "") + ".")
+    sys.exit("No penguins-gui AppImage in the latest release" +
+             (" for " + architecture if architecture else "") + ".")
 for asset in assets:
     url = asset["browser_download_url"]
     if not url.startswith("https://github.com/pieroproietti/penguins-gui/releases/download/") or any(c.isspace() for c in url):
-        sys.exit("URL AppImage non valido.")
+        sys.exit("Invalid AppImage URL.")
     print(asset["name"] + "\t" + url)
 PY
     if [ $? -ne 0 ]; then
@@ -41,7 +41,7 @@ PY
     fi
 
     while IFS=$'\t' read -r name url; do
-        echo "📥 Scarico $name"
+        echo "📥 Downloading $name"
         curl --fail --silent --show-error --location --retry 3 \
             "$url" -o "${stage_dir}/${name}.part" || return 1
         [ -s "${stage_dir}/${name}.part" ] || return 1

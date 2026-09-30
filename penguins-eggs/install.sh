@@ -2,7 +2,7 @@
 set -euo pipefail
 URL_BASE="https://penguins-eggs.net/basket/packages"
 if [[ $# -ne 0 ]]; then
-    echo "Uso: sudo $0" >&2
+    echo "Usage: sudo $0" >&2
     exit 1
 fi
 
@@ -14,19 +14,19 @@ function title {
     echo ""
 }
 
-# --- Controllo root ---
+# --- Root check ---
 if [[ "$EUID" -ne 0 ]]; then
-    echo "❌ Errore: Questo script deve essere eseguito come root (usa sudo)." >&2
+    echo "❌ Error: This script must be run as root (use sudo)." >&2
     exit 1
 fi
 
-# --- Dipendenze essenziali ---
+# --- Required dependencies ---
 if ! command -v curl >/dev/null 2>&1; then
-    echo "❌ Errore: 'curl' è necessario per esplorare la repository. Installalo e riprova." >&2
+    echo "❌ Error: 'curl' is required to browse the repository. Install it and try again." >&2
     exit 1
 fi
 
-# --- Rilevamento Architettura ---
+# --- Architecture detection ---
 ARCH=$(uname -m)
 case $ARCH in
     x86_64)  DEB_ARCH="amd64" ;;
@@ -36,26 +36,26 @@ case $ARCH in
     *)       DEB_ARCH="$ARCH" ;;
 esac
 
-# --- Rilevamento Distribuzione ---
+# --- Distribution detection ---
 if [ -f /etc/os-release ]; then
     source /etc/os-release
 else
-    echo "❌ Errore: /etc/os-release non trovato. Impossibile determinare la distribuzione." >&2
+    echo "❌ Error: /etc/os-release not found. Cannot determine the distribution." >&2
     exit 1
 fi
 
 title
-echo "Distro rilevata: $PRETTY_NAME"
-echo "Architettura: $ARCH (Debian-style: $DEB_ARCH)"
+echo "Detected distribution: $PRETTY_NAME"
+echo "Architecture: $ARCH (Debian-style: $DEB_ARCH)"
 echo ""
 
 FOLDER=""
 INSTALL_CMD=()
 PATTERN=""
 
-# Mappatura della distribuzione verso la cartella sul server e il comando di installazione
-# Il pattern cerca esplicitamente un numero dopo "penguins-eggs-" o "penguins-eggs_",
-# escludendo così in modo naturale i pacchetti "penguins-eggs-legacy".
+# Map the distribution to its server directory and installation command
+# The pattern explicitly matches a digit after "penguins-eggs-" or "penguins-eggs_",
+# thereby excluding packages named "penguins-eggs-legacy".
 
 case "$ID" in
     debian | devuan | ubuntu | linuxmint | pop)
@@ -94,7 +94,7 @@ case "$ID" in
         INSTALL_CMD=(apk add --allow-untrusted)
         ;;
     *)
-        # Fallback tramite ID_LIKE
+        # Fallback using ID_LIKE
         case "${ID_LIKE:-}" in
             *debian*)
                 FOLDER="debs"
@@ -102,7 +102,7 @@ case "$ID" in
                 INSTALL_CMD=(apt-get install -y)
                 ;;
             *fedora*|*rhel*|*centos*)
-                FOLDER="el9" # Default prudenziale
+                FOLDER="el9" # Conservative default
                 PATTERN="penguins-eggs-[0-9][a-zA-Z0-9.-]*\.rpm"
                 INSTALL_CMD=(dnf install -y)
                 ;;
@@ -112,7 +112,7 @@ case "$ID" in
                 INSTALL_CMD=(pacman -U --noconfirm)
                 ;;
             *)
-                echo "❌ Distribuzione non supportata: $PRETTY_NAME" >&2
+                echo "❌ Unsupported distribution: $PRETTY_NAME" >&2
                 exit 1
                 ;;
         esac
@@ -120,19 +120,19 @@ case "$ID" in
 esac
 
 # ==============================================================================
-# --- Ricerca e Download ---
+# --- Search and download ---
 # ==============================================================================
 
 FETCH_URL="${URL_BASE}/${FOLDER}/"
-echo "🔍 Cerco l'ultima versione in: $FETCH_URL"
+echo "🔍 Looking for the latest version at: $FETCH_URL"
 
-# Legge la pagina web, estrae i link corrispondenti al pattern,
-# li ordina per versione (sort -V) e prende l'ultimo (tail -n 1)
+# Read the web page and extract links matching the pattern,
+# sort them by version (sort -V) and select the last one (tail -n 1)
 INDEX=$(curl --fail --silent --show-error --location "$FETCH_URL")
 LATEST_PKG=$(printf '%s\n' "$INDEX" | grep -oE "$PATTERN" | sort -u | sort -V | tail -n 1 || true)
 
 if [ -z "$LATEST_PKG" ]; then
-    echo "❌ Errore: Nessun pacchetto compatibile trovato per $PRETTY_NAME ($ARCH)."
+    echo "❌ Error: No compatible package found for $PRETTY_NAME ($ARCH)."
     exit 1
 fi
 
@@ -141,31 +141,31 @@ DOWNLOAD_DIR=$(mktemp -d)
 trap 'rm -rf "$DOWNLOAD_DIR"' EXIT
 LOCAL_FILE="${DOWNLOAD_DIR}/${LATEST_PKG}"
 
-echo "✅ Trovato: $LATEST_PKG"
-echo "⬇️  Download in corso..."
+echo "✅ Found: $LATEST_PKG"
+echo "⬇️  Downloading..."
 
 if ! curl --fail -L -o "$LOCAL_FILE" "$DOWNLOAD_URL"; then
-    echo "❌ Errore durante il download del file." >&2
+    echo "❌ Error downloading the file." >&2
     exit 1
 fi
 
-echo "✅ Download completato: $LOCAL_FILE"
+echo "✅ Download complete: $LOCAL_FILE"
 echo ""
 
 # ==============================================================================
-# --- Installazione ---
+# --- Installation ---
 # ==============================================================================
 
-printf "🚀 Eseguo l'installazione: "
+printf "🚀 Running installation: "
 printf '%q ' "${INSTALL_CMD[@]}" "$LOCAL_FILE"
 printf '\n'
 echo "----------------------------------------------------------"
 
 if ! "${INSTALL_CMD[@]}" "$LOCAL_FILE"; then
     echo "----------------------------------------------------------"
-    echo "❌ Errore: L'installazione è fallita." >&2
+    echo "❌ Error: Installation failed." >&2
     exit 1
 fi
 
 echo "----------------------------------------------------------"
-echo "🎉 Installazione di penguins-eggs completata con successo!"
+echo "🎉 penguins-eggs installed successfully!"

@@ -4,58 +4,58 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 source "${SCRIPT_DIR}/../penguins-gui/stage-gui-appimage.sh" || exit 1
 source "${SCRIPT_DIR}/common.sh" || exit 1
 
-# --- CONFIGURAZIONE ---
+# --- CONFIGURATION ---
 DEST_BASE_DIR="/home/artisan/basket/packages"
 
-# Creiamo l'area di staging temporanea
+# Create the temporary staging area
 STAGE_BASE="/tmp/local_stage_$$"
 mkdir -p "$STAGE_BASE" || exit 1
 trap 'rm -rf "$STAGE_BASE"' EXIT
 
-# Completiamo il download prima di modificare le destinazioni.
+# Complete the download before modifying destinations.
 if ! stage_gui_appimage "${STAGE_BASE}/appimage"; then
-    echo "❌ Download AppImage di penguins-gui fallito. Esco senza sincronizzare." >&2
+    echo "❌ Failed to download penguins-gui AppImages. Exiting without syncing." >&2
     exit 1
 fi
 REPOS["${STAGE_BASE}/appimage"]="appimage"
 
-# Assicuriamoci che la directory di destinazione finale esista
+# Ensure the final destination directory exists
 mkdir -p "$DEST_BASE_DIR"
 
-# --- INIZIO CICLO REPOSITORY ---
+# --- REPOSITORY LOOP ---
 for SRC_DIR in "${!REPOS[@]}"; do
     DEST_SUBDIR="${REPOS[$SRC_DIR]}"
     
     if [ ! -d "$SRC_DIR" ]; then
-        echo "⚠️  Saltata: $SRC_DIR (non esiste localmente)"
+        echo "⚠️  Skipped: $SRC_DIR (does not exist locally)"
         continue
     fi
 
     echo "---------------------------------------------------"
-    echo "Analizzo sorgente: $SRC_DIR"
+    echo "Inspecting source: $SRC_DIR"
     
-    # Prepariamo la cartella vuota (lo specchio perfetto)
+    # Prepare the empty directory for mirroring
     STAGE_DIR="${STAGE_BASE}/${DEST_SUBDIR}"
     mkdir -p "$STAGE_DIR"
 
     stage_packages "$SRC_DIR" "$STAGE_DIR" "$DEST_SUBDIR"
 
-    # Controllo di sicurezza: se la cartella stage è vuota, non sincronizziamo
+    # Safety check: skip syncing if staging is empty
     if [ -z "$(ls -A "$STAGE_DIR")" ]; then
-        echo "⚠️  Nessun pacchetto trovato da caricare per $DEST_SUBDIR. Salto la sincronizzazione."
+        echo "⚠️  No packages found to upload for $DEST_SUBDIR. Skipping sync."
         continue
     fi
 
-    # Prepariamo la sottocartella di destinazione finale se non esiste
+    # Create the final destination subdirectory if it does not exist
     mkdir -p "${DEST_BASE_DIR}/${DEST_SUBDIR}"
 
-    # --- LA MAGIA: RSYNC --DELETE ---
-    echo "🚀 Sincronizzo in locale (copio i nuovi, cancello il passato)..."
+    # --- MIRROR USING RSYNC --DELETE ---
+    echo "🚀 Syncing locally (copying new files, deleting old files)..."
     rsync -avP --delete "${STAGE_DIR}/" "${DEST_BASE_DIR}/${DEST_SUBDIR}/"
 
 done
 
 echo "---------------------------------------------------"
-echo "🧹 Pulizia area di staging temporanea..."
+echo "🧹 Cleaning up the temporary staging area..."
 
-echo "✅ Specchio locale allineato perfettamente in ${DEST_BASE_DIR}."
+echo "✅ Local mirror fully synchronized at ${DEST_BASE_DIR}."

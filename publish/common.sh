@@ -14,12 +14,12 @@ stage_latest() {
     local stage_dir=$2
     local pattern=$3
 
-    # Troviamo l'ultimo file (head -n 1 prende il più recente)
+    # Find the latest file (head -n 1 selects the most recent)
     local latest=$(ls -t "${src_dir}"/${pattern} 2>/dev/null | head -n 1)
 
     if [ -n "$latest" ] && [ -f "$latest" ]; then
         cp -a "$latest" "$stage_dir/"
-        echo "    ✅ Selezionato: $(basename "$latest")"
+        echo "    ✅ Selected: $(basename "$latest")"
     fi
 }
 

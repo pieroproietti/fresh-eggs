@@ -2,10 +2,10 @@
 set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 usage() {
-    echo "Uso: $0 [--gui | --cli | --legacy | --help]"
-    echo "  --gui: scarica penguins-gui.AppImage nella directory corrente"
-    echo "  --cli: installa penguins-eggs (Go), richiede sudo se necessario"
-    echo "  --legacy: installa penguins-eggs-legacy (Node.js), richiede sudo se necessario"
+    echo "Usage: $0 [--gui | --cli | --legacy | --help]"
+    echo "  --gui: download penguins-gui.AppImage to the current directory"
+    echo "  --cli: install penguins-eggs (Go), using sudo if needed"
+    echo "  --legacy: install penguins-eggs-legacy (Node.js), using sudo if needed"
 }
 [[ $# -gt 0 ]] || { usage; exit 0; }
 [[ $# -le 1 ]] || { usage >&2; exit 1; }
@@ -18,7 +18,7 @@ case "$1" in
 esac
 if [[ "$target" != "penguins-gui" && "$EUID" -ne 0 ]]; then
     if ! command -v sudo >/dev/null 2>&1; then
-        echo "Errore: sudo non disponibile. Esegui l'installer come root." >&2
+        echo "Error: sudo is unavailable. Run the installer as root." >&2
         exit 1
     fi
     exec sudo bash "${SCRIPT_DIR}/${target}/install.sh"

@@ -95,7 +95,7 @@ AppImage without launching it.
 
 You can also invoke `install.sh` directly in each component directory.
 
-# Package publishing
+# Just for me - Package publishing
 
 `publish/basket.sh` and `publish/sourceforge.sh` synchronize the latest local packages and
 download the AppImages from the latest stable GitHub release of
@@ -104,11 +104,6 @@ download the AppImages from the latest stable GitHub release of
 to `rsync` and SSH for SourceForge. Both scripts use `penguins-gui/stage-gui-appimage.sh`; keep the repository
 layout intact. If the AppImage download fails or the release has no matching asset,
 the scripts stop before synchronizing destinations.
-
-# [SUPPORTED DISTROS](./SUPPORTED-DISTROS.md)
-
-# Fork it!
-This is a short and simple script, you are encouraged to fork it and adapt it to your needs. Of course PR will welcomed!
 
 Copyright (c) 2022 - 2026
 [Piero Proietti](https://penguins-eggs.net/about-me.html), dual licensed under

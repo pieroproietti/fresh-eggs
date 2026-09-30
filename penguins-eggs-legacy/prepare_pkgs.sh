@@ -1,26 +1,26 @@
 #!/bin/bash
 
-# Funzione per scoprire automaticamente l'ultima versione disponibile sul server
+# Automatically discover the latest version available on the server
 function discover_latest {
     local file_pattern="$1"
     local repo_url="${URL_BASE}/${FOLDER}/"
     
-    echo ">> Rilevamento versione in: ${FOLDER}..."
+    echo ">> Detecting version in: ${FOLDER}..."
     
-    # Recupera l'elenco, filtra, ordina e prendi l'ultimo
+    # Fetch the listing, filter, sort and select the last entry
     local latest_file
     latest_file=$(curl -sL "$repo_url" | grep -oP "$file_pattern" | sort -V | tail -n 1)
 
     if [[ -z "$latest_file" ]]; then
-        echo ">> Error: nessun pacchetto trovato in ${repo_url} con pattern ${file_pattern}" >&2
+        echo ">> Error: no package found at ${repo_url} matching pattern ${file_pattern}" >&2
         return 1
     fi
 
-    # Estrazione universale versione e release (funziona con _ o - come separatori)
+    # Extract version and release (supports _ or - as separators)
     LAST_VERSION=$(echo "$latest_file" | sed -E 's/.*[-_]([0-9.]+)-([0-9]+).*/\1/')
     LAST_RELEASE=$(echo "$latest_file" | sed -E 's/.*[-_]([0-9.]+)-([0-9]+).*/\2/')
     
-    echo ">> Rilevato: ${LAST_VERSION}-${LAST_RELEASE}"
+    echo ">> Detected: ${LAST_VERSION}-${LAST_RELEASE}"
 }
 
 function not_supported {
