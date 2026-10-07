@@ -21,7 +21,7 @@ cd fresh-eggs
 
 
 Without arguments, the script displays usage and exits without downloading or
-installing anything. Run it as a normal user; `--cli`, `--legacy` and `--chef` request
+installing anything. Run it as a normal user; `--cli`, `--legacy`, `--chef` and `--tailor` request
 sudo authorization when needed.
 
 ## Desktop: penguins-gui AppImage
@@ -96,15 +96,33 @@ For subsequent package updates, configure the native repository with:
 sudo chef tools repo add
 ```
 
+## Tailor version
+
+```bash
+./fresh-eggs.sh --tailor
+```
+
+This path requires `curl`, detects the distribution and architecture, downloads
+the latest compatible package from
+[the basket](https://penguins-eggs.net/basket/packages/), and installs it with
+the system package manager. No Go compiler is required.
+
+For subsequent package updates, configure the native repository with:
+
+```bash
+sudo tailor tools repo add
+```
+
 
 # Repository layout
 
 ```text
-fresh-eggs.sh                  # dispatcher: --gui, --cli, --legacy, --chef
+fresh-eggs.sh                  # dispatcher: --gui, --cli, --legacy, --chef, --tailor
 penguins-gui/                  # AppImage installer and download helper
 penguins-eggs/                 # Go CLI installer
 penguins-eggs-legacy/          # legacy installer and Node.js helpers
 penguins-chef/                 # Chef CLI installer
+penguins-tailor/               # Tailor CLI installer
 publish/                      # basket.sh and sourceforge.sh
 ```
 
@@ -118,6 +136,7 @@ AppImage without launching it.
 ./fresh-eggs.sh --cli
 ./fresh-eggs.sh --legacy
 ./fresh-eggs.sh --chef
+./fresh-eggs.sh --tailor
 ```
 
 You can also invoke `install.sh` directly in each component directory.

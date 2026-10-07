@@ -30,7 +30,7 @@ stage_packages() {
         appimage) return 0 ;; # Already downloaded into staging.
         debs)
             for arch in amd64 arm64 riscv64 i386; do
-                for package in penguins-eggs penguins-eggs-legacy penguins-gui penguins-chef; do
+                for package in penguins-eggs penguins-eggs-legacy penguins-gui penguins-chef penguins-tailor; do
                     stage_latest "$src_dir" "$stage_dir" "${package}_[0-9]*_${arch}.deb"
                 done
             done
@@ -41,7 +41,7 @@ stage_packages() {
         alpine) suffix=apk ;;
         *) return 1 ;;
     esac
-    for package in penguins-eggs penguins-eggs-legacy penguins-gui penguins-chef; do
+    for package in penguins-eggs penguins-eggs-legacy penguins-gui penguins-chef penguins-tailor; do
         stage_latest "$src_dir" "$stage_dir" "${package}-[0-9]*.${suffix}"
     done
 }
