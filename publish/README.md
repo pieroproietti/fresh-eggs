@@ -11,7 +11,7 @@ Both scripts require access to the local package repositories configured inside 
 
 `basket.sh` synchronizes to `/home/artisan/basket/packages`.
 `sourceforge.sh` synchronizes to the configured SourceForge `Packages` directory.
-Both publish standard, legacy and GUI packages, and use
+Both publish standard, legacy, GUI and chef packages, and use
 `../penguins-gui/stage-gui-appimage.sh` to download AppImages before syncing.
 Their destination paths and package selection are preserved.
 
